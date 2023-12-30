@@ -1,0 +1,33 @@
+.navBar {
+  background-color: var(--white);
+  width: 93px;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  object-fit: contain;
+  margin-top: 52px;
+}
+
+.navigationItems {
+  margin-bottom: auto;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.shoppingCartContiner {
+  width: 42px;
+  height: 42px;
+  border-radius: 100%;
+  background-color: var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 35px;
+}
