@@ -1,0 +1,34 @@
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+.tooltipContent {
+  visibility: hidden;
+  width: 65px;
+  height: 21px;
+  background-color: var(--gray);
+  color: var(--white);
+  border-radius: 4px;
+  position: absolute;
+  z-index: 1;
+  top: 2px;
+  left: 45px;
+  font-size: var(--xs-font);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tooltipContent::before {
+  content: "\A";
+  border-style: solid;
+  border-width: 5px 10px 5px 0;
+  border-color: transparent var(--gray) transparent transparent;
+  position: absolute;
+  top: 5px;
+  right: 64px;
+}
+
+.tooltip:hover .tooltipContent {
+  visibility: visible;
+}

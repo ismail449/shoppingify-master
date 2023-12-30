@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Tooltip from "../tooltip/tooltip";
 import styles from "./nav-bar.module.css";
 
 const NavBar = () => {
@@ -15,23 +16,29 @@ const NavBar = () => {
       />
       <ul className={styles.navigationItems}>
         <li>
-          <Image src="./list.svg" width={26} height={26} alt="a list icon" />
+          <Tooltip content="items">
+            <Image src="./list.svg" width={26} height={26} alt="a list icon" />
+          </Tooltip>
         </li>
         <li>
-          <Image
-            src="./history.svg"
-            width={26}
-            height={26}
-            alt="a history icon"
-          />
+          <Tooltip content="history">
+            <Image
+              src="./history.svg"
+              width={26}
+              height={26}
+              alt="a history icon"
+            />
+          </Tooltip>
         </li>
         <li>
-          <Image
-            src="./statistics.svg"
-            width={26}
-            height={26}
-            alt="a list icon"
-          />
+          <Tooltip content="statistics">
+            <Image
+              src="./statistics.svg"
+              width={26}
+              height={26}
+              alt="a list icon"
+            />
+          </Tooltip>
         </li>
       </ul>
       <div className={styles.shoppingCartContiner}>

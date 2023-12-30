@@ -3,6 +3,12 @@
   --main-bg-color: #fafafe;
   --white: #ffffff;
   --orange: #f9a109;
+  --gray: #454545;
+  --xl-font: 26px;
+  --l-font: 18px;
+  --m-font: 16px;
+  --s-font: 14px;
+  --xs-font: 12px;
 }
 
 * {
