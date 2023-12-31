@@ -1,3 +1,17 @@
 .home {
   margin-left: 80px;
 }
+
+.homeTitle {
+  font-size: var(--xl-font);
+  color: var(--title-color);
+  font-weight: 500;
+  line-height: 32.5px;
+  display: inline-block;
+  width: 450px;
+}
+
+.homeTitle span {
+  color: var(--orange);
+  font-weight: 700;
+}

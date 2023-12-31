@@ -1,3 +1,4 @@
+import SearchInput from "@/components/search-input/search-input";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
         <span>Shoppingify</span> allows you take your shopping list wherever you
         go
       </h1>
+      <SearchInput placeholder="search item" />
     </main>
   );
 }
