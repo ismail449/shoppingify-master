@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={quicksand.className}>
         <NavBar />
-        {children}
+        <div className="global-container">{children}</div>
       </body>
     </html>
   );

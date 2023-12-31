@@ -32,3 +32,13 @@ a {
 ul {
   list-style-type: none;
 }
+
+.global-container {
+  margin-left: 93px;
+}
+
+@media only screen and (max-width: 600px) {
+  .global-container {
+    margin-left: 61px;
+  }
+}

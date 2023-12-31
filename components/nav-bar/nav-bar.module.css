@@ -11,6 +11,7 @@
 .logo {
   object-fit: contain;
   margin-top: 52px;
+  cursor: pointer;
 }
 
 .navigationItems {
@@ -19,6 +20,10 @@
   display: flex;
   flex-direction: column;
   gap: 60px;
+}
+
+.navigationItems li {
+  cursor: pointer;
 }
 
 .shoppingCartContiner {
@@ -30,4 +35,11 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 35px;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+  .navBar {
+    width: 61px;
+  }
 }
