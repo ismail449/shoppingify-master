@@ -5,12 +5,15 @@
   --orange: #f9a109;
   --gray: #454545;
   --title-color: #34333a;
+  --search-input-placeholder-color: #bdbdbd;
 
   --xl-font: 26px;
   --l-font: 18px;
   --m-font: 16px;
   --s-font: 14px;
   --xs-font: 12px;
+
+  --search-input-shadow: 0px 2px 12px 0px #0000000a;
 }
 
 * {

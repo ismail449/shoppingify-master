@@ -1,9 +1,22 @@
 import React, { ComponentProps, FC } from "react";
+import Image from "next/image";
+import styles from "./search-input.module.css";
 
 type Props = {} & ComponentProps<"input">;
 
 const SearchInput: FC<Props> = ({ ...rest }) => {
-  return <input {...rest} type="search" />;
+  return (
+    <div className={styles.searchInputContiner}>
+      <Image
+        className={styles.magnifyingGlass}
+        src="./search.svg"
+        alt="magnifying glass"
+        width={19}
+        height={19}
+      />
+      <input className={styles.searchInput} {...rest} type="search" />
+    </div>
+  );
 };
 
 export default SearchInput;
