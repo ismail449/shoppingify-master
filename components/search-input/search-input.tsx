@@ -14,7 +14,7 @@ const SearchInput: FC<Props> = ({ ...rest }) => {
         width={19}
         height={19}
       />
-      <input className={styles.searchInput} {...rest} type="search" />
+      <input {...rest} className={styles.searchInput} type="search" />
     </div>
   );
 };

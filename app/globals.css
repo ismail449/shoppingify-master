@@ -40,10 +40,12 @@ ul {
 
 .global-container {
   margin-left: 93px;
+  margin-right: 389px;
 }
 
 @media only screen and (max-width: 600px) {
   .global-container {
     margin-left: 61px;
+    margin-right: 0px;
   }
 }

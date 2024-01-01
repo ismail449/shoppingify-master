@@ -1,5 +1,6 @@
 .home {
   margin-left: 80px;
+  margin-right: 89px;
 }
 
 .homeTitle {
@@ -14,4 +15,19 @@
 .homeTitle span {
   color: var(--orange);
   font-weight: 700;
+}
+
+.topSectionContiner {
+  display: flex;
+  justify-content: space-between;
+  height: 76px;
+  margin-top: 27px;
+}
+
+.homeTitle {
+  align-self: flex-end;
+}
+
+.searchInputContiner {
+  align-self: flex-start;
 }
