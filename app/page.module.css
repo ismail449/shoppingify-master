@@ -10,6 +10,7 @@
   line-height: 32.5px;
   display: inline-block;
   width: 450px;
+  align-self: flex-end;
 }
 
 .homeTitle span {
@@ -24,10 +25,34 @@
   margin-top: 27px;
 }
 
-.homeTitle {
-  align-self: flex-end;
-}
-
 .searchInputContiner {
   align-self: flex-start;
+  width: 275.61px;
+  height: 51px;
+}
+
+@media only screen and (max-width: 600px) {
+  .home {
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+  .topSectionContiner {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: auto;
+    gap: 10px;
+  }
+  .homeTitle {
+    align-self: unset;
+    font-size: var(--m-font);
+    line-height: unset;
+    width: auto;
+  }
+  .searchInputContiner {
+    align-self: unset;
+    width: 90%;
+    height: 51px;
+  }
 }
