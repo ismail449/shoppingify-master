@@ -1,4 +1,5 @@
 import SearchInput from "@/components/search-input/search-input";
+import ShoppingItem from "@/components/shopping-item/shopping-item";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
           <SearchInput placeholder="search item" />
         </div>
       </div>
+      <ShoppingItem shoppingItem="Chicken leg box" />
     </main>
   );
 }

@@ -1,0 +1,17 @@
+.shoppingItem {
+  display: flex;
+  justify-content: space-between;
+  width: 182px;
+  height: auto;
+  padding: 15px;
+  background-color: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shopping-item-shadow);
+}
+
+.shoppingItemText {
+  max-width: 127px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+}
