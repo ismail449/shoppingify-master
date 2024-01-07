@@ -11,7 +11,18 @@
 
 .shoppingItemText {
   max-width: 127px;
-  font-size: 16px;
+  font-size: var(--m-font);
   font-weight: 600;
   line-height: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+  .shoppingItem {
+    width: 140px;
+  }
+
+  .shoppingItemText {
+    max-width: 76px;
+    font-size: var(--s-font);
+  }
 }
