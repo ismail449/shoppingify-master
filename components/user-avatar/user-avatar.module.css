@@ -1,0 +1,27 @@
+.avatarContainer {
+  position: relative;
+  margin-top: 25px;
+  cursor: pointer;
+  width: 41px;
+  height: 41px;
+}
+
+.avatar {
+  object-fit: contain;
+  border-radius: 50%;
+}
+.text {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  opacity: 0;
+  transition: all 0.8s ease;
+  font-size: var(--xs-font);
+  color: var(--white);
+}
+
+.avatarContainer:hover .text {
+  opacity: 1;
+}

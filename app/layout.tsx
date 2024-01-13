@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Quicksand } from "next/font/google";
 import NavBar from "@/components/nav-bar/nav-bar";
+import AuthProvider from "./auth-provider";
 import "./globals.css";
 
 const quicksand = Quicksand({ subsets: ["latin"] });
@@ -16,11 +17,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={quicksand.className}>
-        <NavBar />
-        <div className="global-container">{children}</div>
-      </body>
-    </html>
+    <AuthProvider>
+      <html lang="en">
+        <body className={quicksand.className}>
+          <NavBar />
+          <div className="global-container">{children}</div>
+        </body>
+      </html>
+    </AuthProvider>
   );
 }

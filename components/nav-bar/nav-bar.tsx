@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Tooltip from "../tooltip/tooltip";
+import UserAvatar from "../user-avatar/user-avatar";
 import styles from "./nav-bar.module.css";
 
 const NavBar = () => {
@@ -14,6 +15,7 @@ const NavBar = () => {
         alt="logo"
         priority
       />
+      <UserAvatar />
       <ul className={styles.navigationItems}>
         <li>
           <Tooltip content="items">
