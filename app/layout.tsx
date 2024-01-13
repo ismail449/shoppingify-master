@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Quicksand } from "next/font/google";
 import NavBar from "@/components/nav-bar/nav-bar";
+import SideBar from "@/components/side-bar/side-bar";
 import AuthProvider from "./auth-provider";
 import "./globals.css";
 
@@ -22,6 +23,7 @@ export default function RootLayout({
         <body className={quicksand.className}>
           <NavBar />
           <div className="global-container">{children}</div>
+          <SideBar />
         </body>
       </html>
     </AuthProvider>
