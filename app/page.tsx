@@ -2,10 +2,11 @@ import SearchInput from "@/components/search-input/search-input";
 import ShoppingItem from "@/components/shopping-item/shopping-item";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]/route";
 import styles from "./page.module.css";
 
 export default async function Home() {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   if (!session) {
     redirect("/api/auth/signin");
   }
