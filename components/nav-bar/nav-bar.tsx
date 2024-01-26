@@ -3,6 +3,7 @@ import Image from "next/image";
 import Tooltip from "../tooltip/tooltip";
 import UserAvatar from "../user-avatar/user-avatar";
 import styles from "./nav-bar.module.css";
+import ShoppingCartIcon from "../shopping-cart-icon/shopping-cart-icon";
 
 const NavBar = () => {
   return (
@@ -43,15 +44,7 @@ const NavBar = () => {
           </Tooltip>
         </li>
       </ul>
-      <div className={styles.shoppingCartContiner}>
-        <Image
-          src="./shopping_cart.svg"
-          width={20}
-          height={20}
-          alt="logo"
-          priority
-        />
-      </div>
+      <ShoppingCartIcon />
     </nav>
   );
 };

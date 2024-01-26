@@ -4,8 +4,13 @@ import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 import styles from "./page.module.css";
+import ShoppingList from "@/components/side-bar/shopping-list/shopping-list";
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
   const session = await getServerSession(authOptions);
   if (!session) {
     redirect("/api/auth/signin");
@@ -22,6 +27,7 @@ export default async function Home() {
         </div>
       </div>
       <ShoppingItem shoppingItem="Chicken leg box" />
+      {searchParams.shopping ?? <ShoppingList />}
     </main>
   );
 }

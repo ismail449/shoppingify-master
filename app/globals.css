@@ -6,6 +6,7 @@
   --gray: #454545;
   --title-color: #34333a;
   --search-input-placeholder-color: #bdbdbd;
+  --shopping-list-background: #fff0de;
 
   --xl-font: 26px;
   --l-font: 18px;
@@ -15,6 +16,8 @@
 
   --search-input-shadow: 0px 2px 12px 0px #0000000a;
   --shopping-item-shadow: 0px 2px 12px 0px #0000000d;
+
+  --mobile-nav-bar-width: 16%;
 }
 
 * {
@@ -41,12 +44,12 @@ ul {
 
 .global-container {
   margin-left: 93px;
-  margin-right: 389px;
+  margin-right: 27%;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 992px) {
   .global-container {
-    margin-left: 61px;
+    margin-left: var(--mobile-nav-bar-width);
     margin-right: 0px;
   }
 }

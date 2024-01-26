@@ -1,0 +1,11 @@
+.shoppingCartContiner {
+  width: 42px;
+  height: 42px;
+  border-radius: 100%;
+  background-color: var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 35px;
+  cursor: pointer;
+}

@@ -1,4 +1,7 @@
+"use client";
+
 import React, { FC, ReactNode } from "react";
+import { useOpenSidebarContext } from "@/context/open-sidebar-context";
 import styles from "./side-bar.module.css";
 
 type Props = {
@@ -6,7 +9,13 @@ type Props = {
 };
 
 const SideBar: FC<Props> = ({ children }) => {
-  return <div className={styles.sideBar}>{children}</div>;
+  const { isSidebarOpen } = useOpenSidebarContext();
+
+  return (
+    <div className={`${styles.sideBar}  ${isSidebarOpen ? styles.open : null}`}>
+      {children}
+    </div>
+  );
 };
 
 export default SideBar;

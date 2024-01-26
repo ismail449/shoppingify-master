@@ -26,20 +26,8 @@
   cursor: pointer;
 }
 
-.shoppingCartContiner {
-  width: 42px;
-  height: 42px;
-  border-radius: 100%;
-  background-color: var(--orange);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 35px;
-  cursor: pointer;
-}
-
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 992px) {
   .navBar {
-    width: 61px;
+    width: var(--mobile-nav-bar-width);
   }
 }
