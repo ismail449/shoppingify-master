@@ -7,6 +7,7 @@
   --title-color: #34333a;
   --search-input-placeholder-color: #bdbdbd;
   --shopping-list-background: #fff0de;
+  --add-item-background: #80485b;
 
   --xl-font: 26px;
   --l-font: 18px;
@@ -40,6 +41,11 @@ a {
 
 ul {
   list-style-type: none;
+}
+
+button,
+input {
+  font-family: inherit;
 }
 
 .global-container {

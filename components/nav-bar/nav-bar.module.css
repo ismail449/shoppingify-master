@@ -30,4 +30,7 @@
   .navBar {
     width: var(--mobile-nav-bar-width);
   }
+  .logo {
+    margin-top: 17px;
+  }
 }

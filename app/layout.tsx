@@ -20,8 +20,8 @@ export default function RootLayout({
   return (
     <AuthProvider>
       <OpenSidebarProvider>
-        <html lang="en">
-          <body className={quicksand.className}>
+        <html lang="en" className={quicksand.className}>
+          <body>
             <NavBar />
             <div className="global-container">{children}</div>
           </body>
