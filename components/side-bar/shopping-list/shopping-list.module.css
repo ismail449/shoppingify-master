@@ -42,6 +42,17 @@
   margin-top: 14px;
 }
 
+.emptyListText {
+  font-weight: 700;
+  font-size: var(--xl-font);
+  text-align: center;
+  margin-top: 222px;
+}
+
+.inputContainer {
+  width: 80%;
+  height: 61px;
+}
 @media only screen and (max-width: 992px) {
   .addItemBackground {
     width: 83%;

@@ -4,7 +4,7 @@
 }
 
 .homeTitle {
-  font-size: var(--xl-font);
+  font-size: var(--xxl-font);
   color: var(--title-color);
   font-weight: 500;
   line-height: 32.5px;

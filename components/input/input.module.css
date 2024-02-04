@@ -1,0 +1,34 @@
+.inputContainer {
+  height: 100%;
+  background-color: var(--white);
+  border-radius: 12px;
+  border: 2px solid var(--shopping-list-disabled);
+  display: flex;
+}
+
+.input {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: none;
+  border-radius: 12px;
+  padding-left: 20px;
+}
+.inputContainer:has(.input:focus) {
+  border-color: var(--orange);
+}
+.inputButton {
+  height: 100%;
+  border-radius: 9px;
+  border: none;
+  width: 88px;
+  background-color: var(--orange);
+  font-size: var(--m-font);
+  font-weight: bold;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.inputButton:disabled {
+  background-color: var(--shopping-list-disabled);
+}

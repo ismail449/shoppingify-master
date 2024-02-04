@@ -8,8 +8,10 @@
   --search-input-placeholder-color: #bdbdbd;
   --shopping-list-background: #fff0de;
   --add-item-background: #80485b;
+  --shopping-list-disabled: #c1c1c4;
 
-  --xl-font: 26px;
+  --xxl-font: 26px;
+  --xl-font: 20px;
   --l-font: 18px;
   --m-font: 16px;
   --s-font: 14px;
