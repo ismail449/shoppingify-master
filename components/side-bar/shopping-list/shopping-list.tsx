@@ -27,12 +27,23 @@ const ShoppingList = () => {
         </div>
         <div className={styles.shoppingListBody}>
           <p className={styles.emptyListText}> No items </p>
+        </div>
+        <div className={styles.emptyShoppingListImage}>
+          <Image
+            src="./undraw_shopping_app_flsj 1.svg"
+            fill
+            alt="empty shopping list"
+          />
+        </div>
+
+        <div className={styles.inputBackground}>
           <div className={styles.inputContainer}>
             <Input
               placeholder="Enter a name"
+              disabled
               buttonProps={{
                 buttonText: "Save",
-                buttonOnClick: () => console.log(" Hellow "),
+                buttonOnClick: () => console.log(" hello "),
               }}
             />
           </div>

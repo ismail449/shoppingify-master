@@ -2,6 +2,9 @@
   width: 100%;
   height: 100%;
   background-color: var(--shopping-list-background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .addItemBackground {
@@ -9,7 +12,7 @@
   height: 130px;
   border-radius: 24px;
   background-color: var(--add-item-background);
-  margin: 43px auto 0 auto;
+  margin-top: 43px;
   display: flex;
   align-items: center;
   gap: 30px;
@@ -48,16 +51,33 @@
   text-align: center;
   margin-top: 222px;
 }
-
+.emptyShoppingListImage {
+  width: 245px;
+  height: 203px;
+  position: absolute;
+  bottom: 119px;
+  z-index: 1;
+}
+.inputBackground {
+  width: 100%;
+  height: 131px;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--white);
+}
 .inputContainer {
   width: 80%;
   height: 61px;
 }
+
 @media only screen and (max-width: 992px) {
   .addItemBackground {
     width: 83%;
     height: 119px;
-    margin: 25px auto 0 auto;
+    margin-top: 25px;
     gap: 20px;
   }
   .addItemImageContainer {
@@ -67,5 +87,11 @@
     margin-top: 12px;
     width: 110px;
     height: 37px;
+  }
+  .emptyShoppingListImage {
+    width: 90%;
+  }
+  .emptyListText {
+    margin-top: 100px;
   }
 }
