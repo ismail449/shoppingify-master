@@ -10,7 +10,8 @@
   --add-item-background: #80485b;
   --shopping-list-disabled: #c1c1c4;
 
-  --xxl-font: 26px;
+  --xxxl-font: 26px;
+  --xxl-font: 24px;
   --xl-font: 20px;
   --l-font: 18px;
   --m-font: 16px;
@@ -46,7 +47,8 @@ ul {
 }
 
 button,
-input {
+input,
+textarea {
   font-family: inherit;
 }
 

@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 import styles from "./page.module.css";
 import ShoppingList from "@/components/side-bar/shopping-list/shopping-list";
+import AddItemForm from "@/components/side-bar/add-item-form/add-item-form";
 
 export default async function Home({
   searchParams,
@@ -27,7 +28,8 @@ export default async function Home({
         </div>
       </div>
       <ShoppingItem shoppingItem="Chicken leg box" />
-      {searchParams.shopping ?? <ShoppingList />}
+      {!searchParams.shoppingSidebar ? <ShoppingList /> : null}
+      {searchParams.shoppingSidebar === "add-item" ? <AddItemForm /> : null}
     </main>
   );
 }

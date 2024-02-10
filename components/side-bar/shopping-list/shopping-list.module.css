@@ -43,6 +43,7 @@
   font-weight: 700;
   font-size: var(--s-font);
   margin-top: 14px;
+  cursor: pointer;
 }
 
 .emptyListText {
@@ -70,7 +71,6 @@
 }
 .inputContainer {
   width: 80%;
-  height: 61px;
 }
 
 @media only screen and (max-width: 992px) {

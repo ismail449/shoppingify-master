@@ -1,11 +1,26 @@
 "use client";
-import React from "react";
+import React, { useCallback } from "react";
 import Image from "next/image";
 import SideBar from "../side-bar";
 import styles from "./shopping-list.module.css";
 import Input from "@/components/input/input";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 const ShoppingList = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+
   return (
     <SideBar>
       <div className={styles.shoppingList}>
@@ -22,7 +37,18 @@ const ShoppingList = () => {
             <p className={styles.addItemDescription}>
               Didn’t find what you need?
             </p>
-            <button className={styles.addItemButton}>Add item</button>
+            <button
+              onClick={() =>
+                router.push(
+                  pathname +
+                    "?" +
+                    createQueryString("shoppingSidebar", "add-item")
+                )
+              }
+              className={styles.addItemButton}
+            >
+              Add item
+            </button>
           </div>
         </div>
         <div className={styles.shoppingListBody}>

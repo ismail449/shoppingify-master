@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Quicksand, ABeeZee } from "next/font/google";
+import { Quicksand } from "next/font/google";
 import NavBar from "@/components/nav-bar/nav-bar";
 import AuthProvider from "./auth-provider";
 import "./globals.css";

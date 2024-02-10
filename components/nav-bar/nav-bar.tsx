@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Tooltip from "../tooltip/tooltip";
 import UserAvatar from "../user-avatar/user-avatar";
 import styles from "./nav-bar.module.css";
@@ -8,14 +9,16 @@ import ShoppingCartIcon from "../shopping-cart-icon/shopping-cart-icon";
 const NavBar = () => {
   return (
     <nav className={styles.navBar}>
-      <Image
-        className={styles.logo}
-        src="./logo.svg"
-        width={41}
-        height={41}
-        alt="logo"
-        priority
-      />
+      <Link href="/">
+        <Image
+          className={styles.logo}
+          src="./logo.svg"
+          width={41}
+          height={41}
+          alt="logo"
+          priority
+        />
+      </Link>
       <UserAvatar />
       <ul className={styles.navigationItems}>
         <li>
