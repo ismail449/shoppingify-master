@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Quicksand } from "next/font/google";
+import { Quicksand, ABeeZee } from "next/font/google";
 import NavBar from "@/components/nav-bar/nav-bar";
 import AuthProvider from "./auth-provider";
 import "./globals.css";
 import { OpenSidebarProvider } from "@/context/open-sidebar-context";
 
-const quicksand = Quicksand({ subsets: ["latin"] });
+const quicksand = Quicksand({ weight: "variable", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Shoppingify Master",
