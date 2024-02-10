@@ -10,6 +10,7 @@ type Props = {
   name?: string;
   placeholder?: string;
   required?: boolean;
+  type?: "text" | "url";
 };
 
 type ButtonProps = {
@@ -22,6 +23,7 @@ const Input: FC<Props> = ({
   disabled = false,
   textarea = false,
   required = false,
+  type = "text",
   ...rest
 }) => {
   return (
@@ -30,7 +32,7 @@ const Input: FC<Props> = ({
         <input
           className={styles.input}
           {...rest}
-          type="text"
+          type={type}
           disabled={disabled}
         />
       ) : (

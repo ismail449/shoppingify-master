@@ -21,10 +21,17 @@ const AddItemForm = () => {
               Note (optional)
             </label>
             <Input
-              placeholder="Enter a name"
-              name="item-description"
               textarea
+              placeholder="Enter a note"
+              name="item-description"
             />
+          </div>
+
+          <div className={styles.inputContainer}>
+            <label className={styles.label} htmlFor="item-image-url">
+              Image (optional)
+            </label>
+            <Input placeholder="Enter a url" name="item-image-url" />
           </div>
         </form>
       </div>
