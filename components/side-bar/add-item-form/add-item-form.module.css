@@ -14,10 +14,3 @@
 .inputContainer {
   margin-top: 18px;
 }
-.label {
-  color: var(--title-color);
-  font-size: var(--s-font);
-  font-weight: 500;
-  display: block;
-  margin-bottom: 6px;
-}

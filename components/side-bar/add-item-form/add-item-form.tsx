@@ -10,28 +10,26 @@ const AddItemForm = () => {
         <h2 className={styles.formTitle}>Add a new item</h2>
         <form className={styles.addItemForm}>
           <div className={styles.inputContainer}>
-            <label className={styles.label} htmlFor="item-name">
-              Name
-            </label>
-            <Input required placeholder="Enter a name" name="item-name" />
-          </div>
-
-          <div className={styles.inputContainer}>
-            <label className={styles.label} htmlFor="item-description">
-              Note (optional)
-            </label>
             <Input
-              textarea
-              placeholder="Enter a note"
-              name="item-description"
+              required
+              placeholder="Enter a name"
+              labelProps={{ id: "item-name", label: "Name" }}
             />
           </div>
 
           <div className={styles.inputContainer}>
-            <label className={styles.label} htmlFor="item-image-url">
-              Image (optional)
-            </label>
-            <Input placeholder="Enter a url" name="item-image-url" />
+            <Input
+              textarea
+              placeholder="Enter a note"
+              labelProps={{ id: "item-description", label: "Note" }}
+            />
+          </div>
+
+          <div className={styles.inputContainer}>
+            <Input
+              placeholder="Enter a url"
+              labelProps={{ id: "item-image-url", label: "Image" }}
+            />
           </div>
         </form>
       </div>

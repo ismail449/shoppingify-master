@@ -40,3 +40,15 @@ textarea.input {
 .inputButton:disabled {
   background-color: var(--shopping-list-disabled);
 }
+
+.label {
+  color: var(--title-color);
+  font-size: var(--s-font);
+  font-weight: 500;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.focused {
+  color: var(--orange);
+}

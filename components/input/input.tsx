@@ -1,16 +1,21 @@
 "use client";
-import React, { ComponentProps, FC } from "react";
+import React, { FC, useState } from "react";
 import styles from "./input.module.css";
 
 type Props = {
   textarea?: boolean;
   buttonProps?: ButtonProps;
+  labelProps?: LabelProps;
   disabled?: boolean;
   onChange?: () => void;
-  name?: string;
   placeholder?: string;
   required?: boolean;
   type?: "text" | "url";
+};
+
+type LabelProps = {
+  label: string;
+  id: string;
 };
 
 type ButtonProps = {
@@ -20,34 +25,56 @@ type ButtonProps = {
 
 const Input: FC<Props> = ({
   buttonProps,
+  labelProps,
   disabled = false,
   textarea = false,
   required = false,
   type = "text",
   ...rest
 }) => {
+  const [isFocused, setIsFocused] = useState(false);
   return (
-    <div className={styles.inputContainer}>
-      {!textarea ? (
-        <input
-          className={styles.input}
-          {...rest}
-          type={type}
-          disabled={disabled}
-        />
-      ) : (
-        <textarea className={styles.input} {...rest} disabled={disabled} />
-      )}
-      {!!buttonProps?.buttonText ? (
-        <button
-          onClick={buttonProps.buttonOnClick}
-          disabled={disabled}
-          className={styles.inputButton}
+    <>
+      {labelProps?.label ? (
+        <label
+          className={`${styles.label} ${isFocused ? styles.focused : ""}`}
+          htmlFor={labelProps?.id}
         >
-          {buttonProps.buttonText}
-        </button>
+          {`${labelProps.label} ${!required ? "(optional)" : ""}`}
+        </label>
       ) : null}
-    </div>
+      <div className={styles.inputContainer}>
+        {!textarea ? (
+          <input
+            className={styles.input}
+            {...rest}
+            type={type}
+            disabled={disabled}
+            id={labelProps?.id}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+          />
+        ) : (
+          <textarea
+            className={styles.input}
+            {...rest}
+            disabled={disabled}
+            id={labelProps?.id}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+          />
+        )}
+        {!!buttonProps?.buttonText ? (
+          <button
+            onClick={buttonProps.buttonOnClick}
+            disabled={disabled}
+            className={styles.inputButton}
+          >
+            {buttonProps.buttonText}
+          </button>
+        ) : null}
+      </div>
+    </>
   );
 };
 
