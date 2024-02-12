@@ -52,3 +52,26 @@ textarea.input {
 .focused {
   color: var(--orange);
 }
+.categoryList {
+  margin-top: 12px;
+  width: 100%;
+  height: auto;
+  background-color: var(--white);
+  box-shadow: var(--search-input-shadow);
+  border: 1px solid var(--category-list-border-color);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.categoryItem {
+  width: 90%;
+  height: 47px;
+  padding: 11px 23px;
+  margin: 5px 0;
+  border-radius: 12px;
+}
+
+.categoryItem:hover {
+  background-color: var(--category-item-hovered);
+}

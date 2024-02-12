@@ -11,6 +11,7 @@ type Props = {
   placeholder?: string;
   required?: boolean;
   type?: "text" | "url";
+  categoryList?: string[];
 };
 
 type LabelProps = {
@@ -30,6 +31,7 @@ const Input: FC<Props> = ({
   textarea = false,
   required = false,
   type = "text",
+  categoryList = [],
   ...rest
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -74,6 +76,17 @@ const Input: FC<Props> = ({
           </button>
         ) : null}
       </div>
+      {categoryList.length > 0 && isFocused ? (
+        <div className={styles.categoryList}>
+          {categoryList.map((categoryItem) => {
+            return (
+              <div className={styles.categoryItem} key={categoryItem}>
+                {categoryItem}
+              </div>
+            );
+          })}
+        </div>
+      ) : null}
     </>
   );
 };
