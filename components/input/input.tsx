@@ -1,5 +1,6 @@
 "use client";
-import React, { FC, useState } from "react";
+import React, { FC, useRef, useState } from "react";
+import useClickedOutside from "@/hooks/useClickedOutside";
 import styles from "./input.module.css";
 
 type Props = {
@@ -35,8 +36,24 @@ const Input: FC<Props> = ({
   ...rest
 }) => {
   const [isFocused, setIsFocused] = useState(false);
+
+  const inputWrapperRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const clickedOutSide = useClickedOutside(inputWrapperRef);
+
+  const onCategoryItemSelect = (selectedItem: string) => {
+    if (inputRef.current) {
+      inputRef.current.value = selectedItem;
+      return;
+    } else if (textareaRef.current) {
+      textareaRef.current.value = selectedItem;
+      return;
+    }
+  };
   return (
-    <>
+    <div ref={inputWrapperRef}>
       {labelProps?.label ? (
         <label
           className={`${styles.label} ${isFocused ? styles.focused : ""}`}
@@ -48,22 +65,24 @@ const Input: FC<Props> = ({
       <div className={styles.inputContainer}>
         {!textarea ? (
           <input
-            className={styles.input}
-            {...rest}
             type={type}
+            className={styles.input}
             disabled={disabled}
             id={labelProps?.id}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
+            ref={inputRef}
+            {...rest}
           />
         ) : (
           <textarea
             className={styles.input}
-            {...rest}
             disabled={disabled}
             id={labelProps?.id}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
+            ref={textareaRef}
+            {...rest}
           />
         )}
         {!!buttonProps?.buttonText ? (
@@ -76,18 +95,22 @@ const Input: FC<Props> = ({
           </button>
         ) : null}
       </div>
-      {categoryList.length > 0 && isFocused ? (
+      {categoryList.length > 0 && !clickedOutSide ? (
         <div className={styles.categoryList}>
           {categoryList.map((categoryItem) => {
             return (
-              <div className={styles.categoryItem} key={categoryItem}>
+              <div
+                onClick={() => onCategoryItemSelect(categoryItem)}
+                className={styles.categoryItem}
+                key={categoryItem}
+              >
                 {categoryItem}
               </div>
             );
           })}
         </div>
       ) : null}
-    </>
+    </div>
   );
 };
 

@@ -37,7 +37,11 @@ const AddItemForm = () => {
               required
               placeholder="Enter a category"
               labelProps={{ id: "item-category", label: "Category" }}
-              categoryList={["Fruit and vegetables", "Meat and Fish", "Beverages"]}
+              categoryList={[
+                "Fruit and vegetables",
+                "Meat and Fish",
+                "Beverages",
+              ]}
             />
           </div>
         </form>
