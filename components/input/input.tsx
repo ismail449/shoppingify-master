@@ -9,11 +9,11 @@ type Props = {
   buttonProps?: ButtonProps;
   labelProps?: LabelProps;
   disabled?: boolean;
-  onChange?: () => void;
   placeholder?: string;
   required?: boolean;
   type?: "text" | "url";
   categoryList?: string[];
+  name?: string;
 };
 
 type LabelProps = {
@@ -34,7 +34,8 @@ const Input: FC<Props> = ({
   required = false,
   type = "text",
   categoryList = [],
-  ...rest
+  placeholder = "",
+  name = "",
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -81,7 +82,8 @@ const Input: FC<Props> = ({
             onBlur={() => setIsFocused(false)}
             onChange={onInputValueChange}
             value={inputValue}
-            {...rest}
+            placeholder={placeholder}
+            name={name}
           />
         ) : (
           <textarea
@@ -92,7 +94,8 @@ const Input: FC<Props> = ({
             onBlur={() => setIsFocused(false)}
             onChange={onInputValueChange}
             value={inputValue}
-            {...rest}
+            placeholder={placeholder}
+            name={name}
           />
         )}
         {inputValue.length > 0 ? (
