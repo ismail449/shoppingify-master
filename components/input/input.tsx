@@ -1,5 +1,6 @@
 "use client";
 import React, { FC, useRef, useState } from "react";
+import Image from "next/image";
 import useClickedOutside from "@/hooks/useClickedOutside";
 import styles from "./input.module.css";
 
@@ -55,6 +56,10 @@ const Input: FC<Props> = ({
   ) => {
     setInputValue(e.target.value);
   };
+
+  const clearInput = () => {
+    setInputValue("");
+  };
   return (
     <div ref={inputWrapperRef}>
       {labelProps?.label ? (
@@ -90,6 +95,16 @@ const Input: FC<Props> = ({
             {...rest}
           />
         )}
+        {inputValue.length > 0 ? (
+          <Image
+            className={styles.clearInput}
+            src="./close.svg"
+            alt="clear input value button"
+            width={19}
+            height={19}
+            onClick={clearInput}
+          />
+        ) : null}
         {!!buttonProps?.buttonText ? (
           <button
             onClick={buttonProps.buttonOnClick}

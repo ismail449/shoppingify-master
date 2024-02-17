@@ -4,6 +4,7 @@
   border-radius: 12px;
   border: 2px solid var(--shopping-list-disabled);
   display: flex;
+  align-items: center;
 }
 
 .input {
@@ -75,4 +76,10 @@ textarea.input {
 
 .categoryItem:hover {
   background-color: var(--category-item-hovered);
+}
+
+.clearInput {
+  position: relative;
+  right: 10px;
+  cursor: pointer;
 }
