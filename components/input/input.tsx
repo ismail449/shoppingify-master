@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useRef, useState, useDeferredValue } from "react";
+import React, { FC, useRef, useState } from "react";
 import useClickedOutside from "@/hooks/useClickedOutside";
 import styles from "./input.module.css";
 
@@ -41,6 +41,10 @@ const Input: FC<Props> = ({
   const inputWrapperRef = useRef<HTMLDivElement>(null);
 
   const clickedOutSide = useClickedOutside(inputWrapperRef);
+
+  const filteredCategoryList = categoryList.filter((categoryItem: string) =>
+    categoryItem.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())
+  );
 
   const onCategoryItemSelect = (selectedItem: string) => {
     setInputValue(selectedItem);
@@ -96,9 +100,9 @@ const Input: FC<Props> = ({
           </button>
         ) : null}
       </div>
-      {categoryList.length > 0 && !clickedOutSide ? (
+      {filteredCategoryList.length > 0 && !clickedOutSide ? (
         <div className={styles.categoryList}>
-          {categoryList.map((categoryItem) => {
+          {filteredCategoryList.map((categoryItem) => {
             return (
               <div
                 onClick={() => onCategoryItemSelect(categoryItem)}
