@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useRef, useState } from "react";
+import React, { FC, useRef, useState, useDeferredValue } from "react";
 import useClickedOutside from "@/hooks/useClickedOutside";
 import styles from "./input.module.css";
 
@@ -36,21 +36,20 @@ const Input: FC<Props> = ({
   ...rest
 }) => {
   const [isFocused, setIsFocused] = useState(false);
+  const [inputValue, setInputValue] = useState("");
 
   const inputWrapperRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const clickedOutSide = useClickedOutside(inputWrapperRef);
 
   const onCategoryItemSelect = (selectedItem: string) => {
-    if (inputRef.current) {
-      inputRef.current.value = selectedItem;
-      return;
-    } else if (textareaRef.current) {
-      textareaRef.current.value = selectedItem;
-      return;
-    }
+    setInputValue(selectedItem);
+  };
+
+  const onInputValueChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    setInputValue(e.target.value);
   };
   return (
     <div ref={inputWrapperRef}>
@@ -71,7 +70,8 @@ const Input: FC<Props> = ({
             id={labelProps?.id}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            ref={inputRef}
+            onChange={onInputValueChange}
+            value={inputValue}
             {...rest}
           />
         ) : (
@@ -81,7 +81,8 @@ const Input: FC<Props> = ({
             id={labelProps?.id}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            ref={textareaRef}
+            onChange={onInputValueChange}
+            value={inputValue}
             {...rest}
           />
         )}
