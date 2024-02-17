@@ -5,6 +5,7 @@ import SideBar from "../side-bar";
 import styles from "./shopping-list.module.css";
 import Input from "@/components/input/input";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import Button from "@/components/button/button";
 
 const ShoppingList = () => {
   const router = useRouter();
@@ -37,18 +38,20 @@ const ShoppingList = () => {
             <p className={styles.addItemDescription}>
               Didn’t find what you need?
             </p>
-            <button
-              onClick={() =>
-                router.push(
-                  pathname +
-                    "?" +
-                    createQueryString("shoppingSidebar", "add-item")
-                )
-              }
-              className={styles.addItemButton}
-            >
-              Add item
-            </button>
+            <div className={styles.addItemButton}>
+              <Button
+                onButtonClick={() =>
+                  router.push(
+                    pathname +
+                      "?" +
+                      createQueryString("shoppingSidebar", "add-item")
+                  )
+                }
+                buttonType="white"
+              >
+                Add item
+              </Button>
+            </div>
           </div>
         </div>
         <div className={styles.shoppingListBody}>

@@ -1,0 +1,33 @@
+.button {
+  padding: 20px 25px;
+  font-weight: 700;
+  font-size: var(--s-font);
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  color: var(--white);
+}
+
+.primary {
+  background-color: var(--primary);
+}
+
+.complete {
+  background-color: var(--complete-background);
+}
+
+.delete {
+  background-color: var(--danger-background);
+}
+
+.cancel {
+  background-color: transparent;
+  color: var(--title-color);
+}
+
+.white {
+  background-color: var(--white);
+  color: var(--title-color);
+  box-shadow: var(--search-input-shadow);
+  padding: 11px 29px;
+}

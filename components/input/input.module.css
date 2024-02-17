@@ -16,7 +16,7 @@
   padding-left: 20px;
 }
 .inputContainer:has(.input:focus) {
-  border-color: var(--orange);
+  border-color: var(--primary);
 }
 .inputContainer:has(textarea) {
   height: 110px;
@@ -31,7 +31,7 @@ textarea.input {
   border-radius: 9px;
   border: none;
   width: 88px;
-  background-color: var(--orange);
+  background-color: var(--primary);
   font-size: var(--m-font);
   font-weight: bold;
   color: var(--white);
@@ -51,7 +51,7 @@ textarea.input {
 }
 
 .focused {
-  color: var(--orange);
+  color: var(--primary);
 }
 .categoryList {
   margin-top: 12px;

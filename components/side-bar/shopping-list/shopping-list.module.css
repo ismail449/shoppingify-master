@@ -34,16 +34,7 @@
 }
 
 .addItemButton {
-  box-shadow: var(--search-input-shadow);
-  background-color: var(--white);
-  width: 120px;
-  height: 40px;
-  border-radius: 12px;
-  border: none;
-  font-weight: 700;
-  font-size: var(--s-font);
   margin-top: 14px;
-  cursor: pointer;
 }
 
 .emptyListText {

@@ -2,7 +2,7 @@
   /*colors*/
   --main-bg-color: #fafafe;
   --white: #ffffff;
-  --orange: #f9a109;
+  --primary: #f9a109;
   --gray: #454545;
   --title-color: #34333a;
   --search-input-placeholder-color: #bdbdbd;
@@ -11,7 +11,8 @@
   --shopping-list-background: #fff0de;
   --add-item-background: #80485b;
   --shopping-list-disabled: #c1c1c4;
-
+  --complete-background: #56ccf2;
+  --danger-background: #eb5757;
   --xxxl-font: 26px;
   --xxl-font: 24px;
   --xl-font: 20px;

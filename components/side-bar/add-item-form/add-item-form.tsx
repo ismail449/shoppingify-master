@@ -1,6 +1,7 @@
 import React from "react";
 import SideBar from "../side-bar";
 import Input from "@/components/input/input";
+import Button from "@/components/button/button";
 import styles from "./add-item-form.module.css";
 
 const AddItemForm = () => {
@@ -43,6 +44,26 @@ const AddItemForm = () => {
                 "Beverages",
               ]}
             />
+          </div>
+          <div className={styles.buttonsContainer}>
+            <Button
+              buttonType="cancel"
+              onButtonClick={async () => {
+                "use server";
+                console.log("Hello");
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              buttonType="primary"
+              onButtonClick={async () => {
+                "use server";
+                console.log("Hello");
+              }}
+            >
+              Save
+            </Button>
           </div>
         </form>
       </div>

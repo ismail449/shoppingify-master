@@ -14,3 +14,11 @@
 .inputContainer {
   margin-top: 18px;
 }
+.buttonsContainer {
+  width: 100%;
+  position: absolute;
+  bottom: 35px;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
