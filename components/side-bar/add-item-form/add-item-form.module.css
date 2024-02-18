@@ -1,6 +1,8 @@
 .addItemFormContainer {
-  margin-top: 34px;
+  padding-top: 34px;
   text-align: left;
+  background-color: var(--main-bg-color);
+  min-height: 100%;
 }
 
 .formTitle {
@@ -8,11 +10,17 @@
 }
 
 .addItemForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-top: 34px;
   margin-right: 40px;
+  height: 100%;
 }
 .inputContainer {
   margin-top: 18px;
+  width: 100%;
 }
 .buttonsContainer {
   width: 100%;
@@ -21,4 +29,24 @@
   display: flex;
   justify-content: center;
   gap: 40px;
+}
+
+@media only screen and (max-width: 992px) {
+  .addItemForm {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  .formTitle {
+    margin-left: 10px;
+  }
+  .buttonsContainer {
+    gap: 20px;
+  }
+}
+
+@media only screen and (max-width: 280px) {
+  .buttonsContainer {
+    position: static;
+    margin-top: 20px;
+  }
 }

@@ -3,7 +3,7 @@ import styles from "./button.module.css";
 
 type ButtonProps = {
   children: ReactNode;
-  onButtonClick: () => void;
+  onButtonClick?: () => void;
   buttonType?: "primary" | "cancel" | "complete" | "delete" | "white";
 };
 
