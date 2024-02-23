@@ -61,6 +61,17 @@ const Input: FC<Props> = ({
   const clearInput = () => {
     setInputValue("");
   };
+  const otherProps = {
+    className: styles.input,
+    disabled: disabled,
+    id: labelProps?.id,
+    onFocus: () => setIsFocused(true),
+    onBlur: () => setIsFocused(false),
+    onChange: onInputValueChange,
+    value: inputValue,
+    placeholder: placeholder,
+    name: name,
+  };
   return (
     <div ref={inputWrapperRef}>
       {labelProps?.label ? (
@@ -73,30 +84,9 @@ const Input: FC<Props> = ({
       ) : null}
       <div className={styles.inputContainer}>
         {!textarea ? (
-          <input
-            type={type}
-            className={styles.input}
-            disabled={disabled}
-            id={labelProps?.id}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-            onChange={onInputValueChange}
-            value={inputValue}
-            placeholder={placeholder}
-            name={name}
-          />
+          <input type={type} {...otherProps} />
         ) : (
-          <textarea
-            className={styles.input}
-            disabled={disabled}
-            id={labelProps?.id}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-            onChange={onInputValueChange}
-            value={inputValue}
-            placeholder={placeholder}
-            name={name}
-          />
+          <textarea {...otherProps} />
         )}
         {inputValue.length > 0 ? (
           <Image
