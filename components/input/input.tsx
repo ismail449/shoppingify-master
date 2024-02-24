@@ -63,14 +63,15 @@ const Input: FC<Props> = ({
   };
   const otherProps = {
     className: styles.input,
-    disabled: disabled,
+    disabled,
     id: labelProps?.id,
     onFocus: () => setIsFocused(true),
     onBlur: () => setIsFocused(false),
     onChange: onInputValueChange,
     value: inputValue,
-    placeholder: placeholder,
-    name: name,
+    placeholder,
+    name,
+    required,
   };
   return (
     <div ref={inputWrapperRef}>
