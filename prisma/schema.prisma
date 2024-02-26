@@ -42,16 +42,16 @@ model Session {
 }
 
 model User {
-  id            String     @id @default(cuid())
+  id            String              @id @default(cuid())
   name          String?
-  bio           String?    @db.Text
+  bio           String?             @db.Text
   age           Int?
-  email         String?    @unique
+  email         String?             @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
-  categorys     Category[]
+  categories    CategoriesOnUsers[]
 }
 
 model VerificationToken {
@@ -67,14 +67,22 @@ model Item {
   name       String
   note       String?
   imageUrl   String?
-  catigory   Category @relation(fields: [categoryId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id])
   categoryId String
 }
 
 model Category {
-  id     String   @id @default(cuid())
-  name   String   @unique
-  item   Item[]
-  user   User[]
-  userId String[]
+  id    String              @id @default(cuid())
+  name  String              @unique
+  item  Item[]
+  users CategoriesOnUsers[]
+}
+
+model CategoriesOnUsers {
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String
+
+  @@id([userId, categoryId])
 }
