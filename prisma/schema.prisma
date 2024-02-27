@@ -64,7 +64,7 @@ model VerificationToken {
 
 model Item {
   id         String   @id @default(cuid())
-  name       String
+  name       String   @unique
   note       String?
   imageUrl   String?
   category   Category @relation(fields: [categoryId], references: [id])
