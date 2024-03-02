@@ -1,17 +1,24 @@
+"use client";
 import React from "react";
 import SideBar from "../side-bar";
 import Input from "@/components/input/input";
 import Button from "@/components/button/button";
 import Link from "next/link";
 import { addItem } from "@/server-actions/server-actions";
+import { useFormState } from "react-dom";
 import styles from "./add-item-form.module.css";
 
+const initialFormState = {
+  message: "",
+};
+
 const AddItemForm = () => {
+  const [state, addItemFormAction] = useFormState(addItem, initialFormState);
   return (
     <SideBar>
       <div className={styles.addItemFormContainer}>
         <h2 className={styles.formTitle}>Add a new item</h2>
-        <form action={addItem} className={styles.addItemForm}>
+        <form action={addItemFormAction} className={styles.addItemForm}>
           <div className={styles.inputContainer}>
             <Input
               required
@@ -61,6 +68,7 @@ const AddItemForm = () => {
             </Button>
           </div>
         </form>
+        {state.message}
       </div>
     </SideBar>
   );
