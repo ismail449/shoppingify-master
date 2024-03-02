@@ -1,25 +1,19 @@
-import React, { FC, ReactNode } from "react";
+"use client";
+import React, { ComponentProps, FC, ReactNode } from "react";
 import styles from "./button.module.css";
 
 type ButtonProps = {
   children: ReactNode;
-  onButtonClick?: () => void;
   buttonType?: "primary" | "cancel" | "complete" | "delete" | "white";
-  type?: "submit" | "button" | "reset";
-};
+} & ComponentProps<"button">;
 
 const Button: FC<ButtonProps> = ({
   children,
-  onButtonClick,
   buttonType = "primary",
-  type = "button",
+  ...rest
 }) => {
   return (
-    <button
-      className={`${styles.button} ${styles[buttonType]}`}
-      onClick={onButtonClick}
-      type={type}
-    >
+    <button className={`${styles.button} ${styles[buttonType]}`} {...rest}>
       {children}
     </button>
   );
