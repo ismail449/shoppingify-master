@@ -30,7 +30,16 @@
   justify-content: center;
   gap: 40px;
 }
-
+.formMessage {
+  text-align: center;
+  font-weight: 700;
+}
+.error {
+  color: var(--danger-background);
+}
+.success {
+  color: var(--success);
+}
 @media only screen and (max-width: 992px) {
   .addItemForm {
     margin-right: 10px;

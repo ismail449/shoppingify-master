@@ -10,6 +10,7 @@ import styles from "./add-item-form.module.css";
 
 const initialFormState = {
   message: "",
+  isError: false,
 };
 
 const AddItemForm = () => {
@@ -68,7 +69,13 @@ const AddItemForm = () => {
             </Button>
           </div>
         </form>
-        {state.message}
+        <p
+          className={`${styles.formMessage} ${
+            state.isError ? styles.error : styles.success
+          }`}
+        >
+          {state.message}
+        </p>
       </div>
     </SideBar>
   );

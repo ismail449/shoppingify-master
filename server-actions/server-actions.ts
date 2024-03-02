@@ -8,13 +8,13 @@ export const addItem = async (previousState: any,formData: FormData) => {
   
   const userEmail = session?.user?.email;
   if(!userEmail){
-    return { message: "user email not found" };
+    return { message: "User email not found", isError: true };
   }
   console.log(session)
 
   const user = await prisma.user.findUnique({ where: { email: userEmail } });
   if(!user){
-    return { message: "user not found" };
+    return { message: "User not found", isError: true };
   }
   const category = (formData.get("category") as string).toLocaleLowerCase();
   const item = (formData.get("name") as string).toLocaleLowerCase();
@@ -36,7 +36,7 @@ export const addItem = async (previousState: any,formData: FormData) => {
     dbCategory = await prisma.category.findUnique({ where: { name: category } });
   }
   if(!dbCategory?.id){
-    return { message: "Error creating a new category" };
+    return { message: "Error creating a new category", isError: true  };
   }
 
   let dbCategoryOnUser = await prisma.categoriesOnUsers.findUnique({where: { userId_categoryId: {categoryId: dbCategory.id, userId: user.id} }});
@@ -47,10 +47,10 @@ export const addItem = async (previousState: any,formData: FormData) => {
   if(!dbItem) {
     dbItem = await prisma.item.create({ data: { name: item, categoryId: dbCategory?.id, imageUrl, note } })
     revalidatePath("/")
-    return { message: "Item added successfully" };
+    return { message: "Item added successfully", isError: false  };
   }
   await prisma.item.update({where: {id: dbItem.id}, data: { categoryId: dbCategory?.id, imageUrl, note }})
   revalidatePath("/")
-  return { message: "Item updated successfully" };
+  return { message: "Item updated successfully", isError: false };
 
 };
