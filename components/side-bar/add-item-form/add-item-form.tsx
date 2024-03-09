@@ -1,10 +1,10 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SideBar from "../side-bar";
 import Input from "@/components/input/input";
 import Button from "@/components/button/button";
 import Link from "next/link";
-import { addItem } from "@/server-actions/server-actions";
+import { addItem, getUserCategories } from "@/server-actions/server-actions";
 import { useFormState } from "react-dom";
 import styles from "./add-item-form.module.css";
 
@@ -15,6 +15,17 @@ const initialFormState = {
 
 const AddItemForm = () => {
   const [state, addItemFormAction] = useFormState(addItem, initialFormState);
+  const [userCategories, setUserCategories] = useState<string[]>();
+
+  useEffect(() => {
+    const fetchUserCategories = async () => {
+      const userCategories = await getUserCategories();
+      if (!userCategories) return;
+      setUserCategories(userCategories);
+    };
+    fetchUserCategories();
+  }, []);
+
   return (
     <SideBar>
       <div className={styles.addItemFormContainer}>
@@ -52,11 +63,7 @@ const AddItemForm = () => {
               required
               placeholder="Enter a category"
               labelProps={{ id: "item-category", label: "Category" }}
-              categoryList={[
-                "Fruit and vegetables",
-                "Meat and Fish",
-                "Beverages",
-              ]}
+              categoryList={userCategories}
               name="category"
             />
           </div>

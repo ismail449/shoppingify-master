@@ -79,3 +79,22 @@ export const addItem = async (previousState: any, formData: FormData) => {
   revalidatePath("/");
   return { message: "Item updated successfully", isError: false };
 };
+
+export const getUserCategories = async () => {
+  const user = await getUser();
+  if (!user) {
+    return;
+  }
+  const categoriesOnUsers = await prisma.categoriesOnUsers.findMany({
+    where: { userId: user.id },
+  });
+  const categoriesIds = categoriesOnUsers.map((categoriyOnUser) => {
+    return categoriyOnUser.categoryId;
+  });
+  const categories = (
+    await prisma.category.findMany({ where: { id: { in: categoriesIds } } })
+  ).map((category) => {
+    return category.name;
+  });
+  return categories;
+};

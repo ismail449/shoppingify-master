@@ -40,7 +40,7 @@ const ShoppingList = () => {
             </p>
             <div className={styles.addItemButton}>
               <Button
-                onButtonClick={() =>
+                onClick={() =>
                   router.push(
                     pathname +
                       "?" +
