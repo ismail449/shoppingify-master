@@ -85,7 +85,7 @@ const Input: FC<Props> = ({
       ) : null}
       <div className={styles.inputContainer}>
         {!textarea ? (
-          <input type={type} {...otherProps} />
+          <input type={type} {...otherProps} autoComplete="off" />
         ) : (
           <textarea {...otherProps} />
         )}
