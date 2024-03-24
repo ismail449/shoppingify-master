@@ -40,11 +40,14 @@ export default async function Home({
           <SearchInput placeholder="search item" />
         </div>
       </div>
-      {!!items.length
-        ? items.map((item) => (
-            <ShoppingItem key={item.id} shoppingItem={item.name} />
-          ))
-        : null}
+      <div className={styles.shppingItemsContainer}>
+        {items.length
+          ? items.map((item) => (
+              <ShoppingItem key={item.id} shoppingItem={item.name} />
+            ))
+          : null}
+      </div>
+
       {!searchParams.shoppingSidebar ? <ShoppingList /> : null}
       {searchParams.shoppingSidebar === "add-item" ? <AddItemForm /> : null}
     </main>
