@@ -57,7 +57,8 @@ textarea.input {
   position: relative;
   margin-top: 12px;
   width: 100%;
-  height: auto;
+  max-height: 168px;
+  overflow-y: scroll;
   background-color: var(--white);
   box-shadow: var(--search-input-shadow);
   border: 1px solid var(--category-list-border-color);
