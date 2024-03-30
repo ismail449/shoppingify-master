@@ -18,19 +18,22 @@ const AddItemForm = () => {
   const [userCategories, setUserCategories] = useState<string[]>();
 
   useEffect(() => {
-    const fetchUserCategories = async () => {
-      const userCategories = await getUserCategories();
-      if (!userCategories) return;
-      setUserCategories(userCategories);
-    };
     fetchUserCategories();
   }, []);
-
+  const fetchUserCategories = async () => {
+    const userCategories = await getUserCategories();
+    if (!userCategories) return;
+    setUserCategories(userCategories);
+  };
+  const addItemWithCategoryUpdate = async (formData: FormData) => {
+    addItemFormAction(formData);
+    await fetchUserCategories();
+  };
   return (
     <SideBar>
       <div className={styles.addItemFormContainer}>
         <h2 className={styles.formTitle}>Add a new item</h2>
-        <form action={addItemFormAction} className={styles.addItemForm}>
+        <form action={addItemWithCategoryUpdate} className={styles.addItemForm}>
           <div className={styles.inputContainer}>
             <Input
               required
