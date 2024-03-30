@@ -33,7 +33,7 @@
 }
 .shppingItemsContainer {
   display: grid;
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(auto-fill, 202px);
   row-gap: 27px;
 }
 
