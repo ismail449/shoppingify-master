@@ -1,5 +1,7 @@
 "use client";
 import React, { ComponentProps, FC, ReactNode } from "react";
+import { useFormStatus } from "react-dom";
+import Spinner from "../spinner/spinner";
 import styles from "./button.module.css";
 
 type ButtonProps = {
@@ -12,9 +14,19 @@ const Button: FC<ButtonProps> = ({
   buttonType = "primary",
   ...rest
 }) => {
+  const status = useFormStatus();
   return (
-    <button className={`${styles.button} ${styles[buttonType]}`} {...rest}>
-      {children}
+    <button
+      className={`${styles.button} ${styles[buttonType]}`}
+      {...rest}
+      disabled={status.pending}
+    >
+      {children}{" "}
+      {status.pending && buttonType !== "cancel" ? (
+        <div className={styles.spinnerContainer}>
+          <Spinner />
+        </div>
+      ) : null}
     </button>
   );
 };

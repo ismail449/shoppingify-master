@@ -9,7 +9,7 @@ import { useFormState } from "react-dom";
 import styles from "./add-item-form.module.css";
 
 const initialFormState = {
-  message: "test",
+  message: "",
   isError: false,
 };
 

@@ -6,8 +6,14 @@
   border: none;
   cursor: pointer;
   color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
+.button:disabled {
+  background-color: var(--shopping-list-disabled);
+  cursor: not-allowed;
+}
 .primary {
   background-color: var(--primary);
 }
@@ -30,4 +36,9 @@
   color: var(--title-color);
   box-shadow: var(--search-input-shadow);
   padding: 11px 29px;
+}
+
+.spinnerContainer {
+  width: 20px;
+  height: 20px;
 }
