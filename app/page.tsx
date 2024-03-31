@@ -5,7 +5,9 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 import ShoppingList from "@/components/side-bar/shopping-list/shopping-list";
 import AddItemForm from "@/components/side-bar/add-item-form/add-item-form";
+import ShoppingItemDetails from "@/components/side-bar/shopping-item-details/shopping-item-details";
 import { prisma } from "@/lib/prisma";
+import Link from "next/link";
 import styles from "./page.module.css";
 
 export default async function Home({
@@ -14,6 +16,7 @@ export default async function Home({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const session = await getServerSession(authOptions);
+
   if (!session || !session.user?.email) {
     redirect("/api/auth/signin");
   }
@@ -43,13 +46,21 @@ export default async function Home({
       <div className={styles.shppingItemsContainer}>
         {items.length
           ? items.map((item) => (
-              <ShoppingItem key={item.id} shoppingItem={item.name} />
+              <Link
+                key={item.id}
+                href={{ search: `shoppingSidebar=item-details` }}
+              >
+                <ShoppingItem shoppingItem={item.name} />
+              </Link>
             ))
           : null}
       </div>
 
       {!searchParams.shoppingSidebar ? <ShoppingList /> : null}
       {searchParams.shoppingSidebar === "add-item" ? <AddItemForm /> : null}
+      {searchParams.shoppingSidebar === "item-details" ? (
+        <ShoppingItemDetails />
+      ) : null}
     </main>
   );
 }
