@@ -1,27 +1,14 @@
 "use client";
-import React, { useCallback } from "react";
+import React from "react";
 import Image from "next/image";
 import SideBar from "../side-bar";
 import styles from "./shopping-list.module.css";
 import Input from "@/components/input/input";
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import useUpdateSearchParams from "@/hooks/useUpdateSearchParams";
 import Button from "@/components/button/button";
 
 const ShoppingList = () => {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [searchParams]
-  );
-
+  const { updateSearchParams } = useUpdateSearchParams();
   return (
     <SideBar>
       <div className={styles.shoppingList}>
@@ -41,11 +28,7 @@ const ShoppingList = () => {
             <div className={styles.addItemButton}>
               <Button
                 onClick={() =>
-                  router.push(
-                    pathname +
-                      "?" +
-                      createQueryString("shoppingSidebar", "add-item")
-                  )
+                  updateSearchParams("shoppingSidebar", "add-item")
                 }
                 buttonType="white"
               >
