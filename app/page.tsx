@@ -48,7 +48,9 @@ export default async function Home({
           ? items.map((item) => (
               <Link
                 key={item.id}
-                href={{ search: `shoppingSidebar=item-details` }}
+                href={{
+                  search: `shoppingSidebar=item-details&id=${item.id}`,
+                }}
               >
                 <ShoppingItem shoppingItem={item.name} />
               </Link>
@@ -59,7 +61,7 @@ export default async function Home({
       {!searchParams.shoppingSidebar ? <ShoppingList /> : null}
       {searchParams.shoppingSidebar === "add-item" ? <AddItemForm /> : null}
       {searchParams.shoppingSidebar === "item-details" ? (
-        <ShoppingItemDetails />
+        <ShoppingItemDetails searchParams={searchParams} />
       ) : null}
     </main>
   );
