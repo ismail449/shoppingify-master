@@ -1,0 +1,21 @@
+.shoppingItemDetails {
+  background-color: var(--white);
+  height: 100%;
+}
+.shoppingItemDatailsContainer {
+  width: 80%;
+  padding-top: 27px;
+  margin-inline: auto;
+}
+.backNavigationContianer {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.backNavigationContianer span {
+  font-size: var(--s-font);
+  color: var(--primary);
+  font-weight: 700;
+  line-height: 17.5px;
+}
