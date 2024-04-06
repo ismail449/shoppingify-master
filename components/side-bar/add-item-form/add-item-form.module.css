@@ -24,9 +24,8 @@
   width: 100%;
 }
 .buttonsContainer {
-  width: 100%;
-  position: absolute;
-  bottom: -292px;
+  position: fixed;
+  bottom: 10px;
   padding-bottom: 10px;
   display: flex;
   justify-content: center;
@@ -52,5 +51,11 @@
   }
   .buttonsContainer {
     gap: 20px;
+  }
+}
+@media (max-height: 670px) {
+  .buttonsContainer {
+    position: static;
+    margin-top: 40px;
   }
 }
