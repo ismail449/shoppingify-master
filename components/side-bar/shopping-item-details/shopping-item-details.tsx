@@ -1,15 +1,25 @@
-import React from "react";
+import React, { FC } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import SideBar from "../side-bar";
+import ImageWithFallback from "@/components/image-with-fallback/image-with-fallback";
+import ShoppingItemasActions from "./shopping-items-actions/shopping-items-actions";
+import { prisma } from "@/lib/prisma";
 import styles from "./shopping-item-details.module.css";
-import Link from "next/link";
 
-const ShoppingItemDetails = ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) => {
-  console.log(searchParams.id);
+type ShoppingItemDetailsProps = {
+  id: string;
+};
+
+const ShoppingItemDetails: FC<ShoppingItemDetailsProps> = async ({ id }) => {
+  const item = await prisma.item.findUnique({ where: { id: id } });
+  if (!item?.id) {
+    return;
+  }
+  const category = await prisma.category.findUnique({
+    where: { id: item?.categoryId },
+  });
+
   return (
     <SideBar>
       <div className={styles.shoppingItemDetails}>
@@ -23,6 +33,39 @@ const ShoppingItemDetails = ({
             />
             <span>back</span>
           </Link>
+          <div className={styles.itemImageContainer}>
+            <ImageWithFallback
+              priority
+              className={styles.itemImage}
+              src={
+                item?.imageUrl ??
+                "https://fakeimg.pl/600x400?text=Image+Not+Found"
+              }
+              alt="shopping item image"
+              fill
+              fallback="https://fakeimg.pl/600x400?text=Image+Not+Found"
+              sizes="300px"
+            />
+          </div>
+          <div className={styles.itemDetailsContainer}>
+            <p className={styles.detailsTitle}>name</p>
+            <p className={`${styles.detailsValue} ${styles.name}`}>
+              {item?.name}
+            </p>
+          </div>
+
+          <div className={styles.itemDetailsContainer}>
+            <p className={styles.detailsTitle}>category</p>
+            <p className={styles.detailsValue}>{category?.name}</p>
+          </div>
+
+          <div className={styles.itemDetailsContainer}>
+            <p className={styles.detailsTitle}>note</p>
+            <p className={styles.detailsValue}>
+              {item?.note ?? "No note was found"}
+            </p>
+          </div>
+          <ShoppingItemasActions itemId={item.id} />
         </div>
       </div>
     </SideBar>
