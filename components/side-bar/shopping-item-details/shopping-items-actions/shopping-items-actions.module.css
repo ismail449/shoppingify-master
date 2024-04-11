@@ -1,0 +1,13 @@
+.buttonsContainer {
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  justify-self: center;
+  gap: 40px;
+}
+
+@media only screen and (max-width: 992px) {
+  .buttonsContainer {
+    gap: 20px;
+  }
+}
