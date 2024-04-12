@@ -98,3 +98,16 @@ export const getUserCategories = async () => {
   });
   return categories;
 };
+
+export const deleteShoppingItem = async (
+  previousState: any,
+  formData: FormData
+) => {
+  const user = await getUser();
+  if (!user) {
+    return { message: "User is not found", isError: true };
+  }
+  const itemId = formData.get("delete") as string;
+  await prisma.item.delete({ where: { id: itemId } });
+  revalidatePath("/");
+};
