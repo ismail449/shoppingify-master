@@ -1,3 +1,7 @@
+.input {
+  position: relative;
+}
+
 .inputContainer {
   height: 61px;
   background-color: var(--white);

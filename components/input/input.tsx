@@ -74,7 +74,7 @@ const Input: FC<Props> = ({
     required,
   };
   return (
-    <div ref={inputWrapperRef}>
+    <div className={styles.input} ref={inputWrapperRef}>
       {labelProps?.label ? (
         <label
           className={`${styles.label} ${isFocused ? styles.focused : ""}`}
