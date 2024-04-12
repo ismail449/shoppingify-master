@@ -13,7 +13,7 @@ import styles from "./page.module.css";
 export default async function Home({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: { [key: string]: string };
 }) {
   const session = await getServerSession(authOptions);
 
@@ -61,7 +61,7 @@ export default async function Home({
       {!searchParams.shoppingSidebar ? <ShoppingList /> : null}
       {searchParams.shoppingSidebar === "add-item" ? <AddItemForm /> : null}
       {searchParams.shoppingSidebar === "item-details" ? (
-        <ShoppingItemDetails searchParams={searchParams} />
+        <ShoppingItemDetails id={searchParams.id} />
       ) : null}
     </main>
   );
