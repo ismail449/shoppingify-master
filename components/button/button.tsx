@@ -1,5 +1,11 @@
 "use client";
-import React, { ComponentProps, FC, ReactNode } from "react";
+import React, {
+  ComponentProps,
+  FC,
+  ReactNode,
+  useEffect,
+  useState,
+} from "react";
 import { useFormStatus } from "react-dom";
 import Spinner from "../spinner/spinner";
 import styles from "./button.module.css";
@@ -12,17 +18,31 @@ type ButtonProps = {
 const Button: FC<ButtonProps> = ({
   children,
   buttonType = "primary",
+  onClick,
   ...rest
 }) => {
+  const [isClicked, setIsClicked] = useState(false);
   const status = useFormStatus();
+  useEffect(() => {
+    if (!status.pending) {
+      setIsClicked(false);
+    }
+  }, [status.pending]);
+  const handleOnClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    setIsClicked(true);
+    onClick?.(e);
+  };
   return (
     <button
       className={`${styles.button} ${styles[buttonType]}`}
       {...rest}
       disabled={status.pending}
+      onClick={handleOnClick}
     >
       {children}{" "}
-      {status.pending && buttonType !== "cancel" ? (
+      {status.pending && isClicked ? (
         <div className={styles.spinnerContainer}>
           <Spinner />
         </div>
