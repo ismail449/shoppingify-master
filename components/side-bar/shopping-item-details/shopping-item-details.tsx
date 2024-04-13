@@ -43,7 +43,7 @@ const ShoppingItemDetails: FC<ShoppingItemDetailsProps> = async ({ id }) => {
               }
               alt="shopping item image"
               fill
-              fallback="https://fakeimg.pl/600x400?text=Image+Not+Found"
+              fallback="https://fakeimg.pl/600x400?text=Error+Fetching+Image"
               sizes="300px"
             />
           </div>
