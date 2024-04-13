@@ -46,14 +46,11 @@ export default async function Home({
       <div className={styles.shppingItemsContainer}>
         {items.length
           ? items.map((item) => (
-              <Link
+              <ShoppingItem
                 key={item.id}
-                href={{
-                  search: `shoppingSidebar=item-details&id=${item.id}`,
-                }}
-              >
-                <ShoppingItem shoppingItem={item.name} />
-              </Link>
+                itemId={item.id}
+                itemName={item.name}
+              />
             ))
           : null}
       </div>
