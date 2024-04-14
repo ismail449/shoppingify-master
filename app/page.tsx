@@ -50,6 +50,7 @@ export default async function Home({
                 key={item.id}
                 itemId={item.id}
                 itemName={item.name}
+                categoryId={item.categoryId}
               />
             ))
           : null}

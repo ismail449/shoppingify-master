@@ -1,14 +1,19 @@
 import React, { FC } from "react";
-import Image from "next/image";
 import styles from "./shopping-item.module.css";
 import Link from "next/link";
+import ShoppingItemAction from "./shopping-item-action/shopping-item-action";
+import { prisma } from "@/lib/prisma";
 
 type Props = {
   itemName: string;
   itemId: string;
+  categoryId: string;
 };
 
-const ShoppingItem: FC<Props> = ({ itemName, itemId }) => {
+const ShoppingItem: FC<Props> = async ({ itemName, itemId, categoryId }) => {
+  const category = await prisma.category.findUnique({
+    where: { id: categoryId },
+  });
   return (
     <div className={styles.shoppingItem}>
       <Link
@@ -18,7 +23,9 @@ const ShoppingItem: FC<Props> = ({ itemName, itemId }) => {
       >
         <span className={styles.shoppingItemText}>{itemName}</span>
       </Link>
-      <Image src="./add.svg" width={24} height={24} alt="add icon" />
+      {!!category?.name ? (
+        <ShoppingItemAction categoryName={category?.name} itemName={itemName} />
+      ) : null}
     </div>
   );
 };
