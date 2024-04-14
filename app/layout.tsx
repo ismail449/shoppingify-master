@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Quicksand } from "next/font/google";
 import NavBar from "@/components/nav-bar/nav-bar";
 import AuthProvider from "./auth-provider";
-import "./globals.css";
 import { OpenSidebarProvider } from "@/context/open-sidebar-context";
+import { ShoppingListProvider } from "@/context/shopping-list-context";
+import "./globals.css";
 
 const quicksand = Quicksand({ weight: "variable", subsets: ["latin"] });
 
@@ -20,12 +21,14 @@ export default function RootLayout({
   return (
     <AuthProvider>
       <OpenSidebarProvider>
-        <html lang="en" className={quicksand.className}>
-          <body>
-            <NavBar />
-            <div className="global-container">{children}</div>
-          </body>
-        </html>
+        <ShoppingListProvider>
+          <html lang="en" className={quicksand.className}>
+            <body>
+              <NavBar />
+              <div className="global-container">{children}</div>
+            </body>
+          </html>
+        </ShoppingListProvider>
       </OpenSidebarProvider>
     </AuthProvider>
   );
