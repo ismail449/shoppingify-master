@@ -33,7 +33,7 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
       (shoppingItem) => shoppingItem.itemName === item.itemName
     );
     if (!shoppingItem) {
-      setShoppingList([...shoppingList, { ...item, itemCount: 0 }]);
+      setShoppingList([...shoppingList, { ...item, itemCount: 1 }]);
       return;
     }
     shoppingItem.itemCount = shoppingItem.itemCount + 1;
