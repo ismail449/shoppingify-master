@@ -5,7 +5,7 @@
   --primary: #f9a109;
   --gray: #454545;
   --title-color: #34333a;
-  --search-input-placeholder-color: #bdbdbd;
+  --input-placeholder-color: #bdbdbd;
   --category-list-border-color: #e0e0e0;
   --category-item-hovered: #f2f2f2;
   --shopping-list-background: #fff0de;
@@ -56,7 +56,10 @@ input,
 textarea {
   font-family: inherit;
 }
-
+input::placeholder,
+textarea::placeholder {
+  color: var(--input-placeholder-color);
+}
 .global-container {
   margin-left: 93px;
   margin-right: 27%;
@@ -72,7 +75,7 @@ textarea {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--search-input-placeholder-color);
+  background: var(--input-placeholder-color);
   border-radius: 10px;
 }
 
