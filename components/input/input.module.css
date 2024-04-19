@@ -4,7 +4,6 @@
 
 .inputContainer {
   height: 61px;
-  background-color: var(--white);
   border-radius: 12px;
   border: 2px solid var(--shopping-list-disabled);
   display: flex;
@@ -17,7 +16,11 @@
   outline: none;
   border: none;
   border-radius: 12px;
-  padding-left: 20px;
+}
+.input input,
+.input textarea {
+  padding-inline-start: 20px;
+  background: transparent;
 }
 .inputContainer:has(.input:focus) {
   border-color: var(--primary);
