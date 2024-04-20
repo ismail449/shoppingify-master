@@ -2,13 +2,28 @@
 import React from "react";
 import Image from "next/image";
 import SideBar from "../side-bar";
-import styles from "./shopping-list.module.css";
 import Input from "@/components/input/input";
 import useUpdateSearchParams from "@/hooks/useUpdateSearchParams";
 import Button from "@/components/button/button";
+import { useShoppingListContext } from "@/context/shopping-list-context";
+import ShoppingItemCountControl from "./shopping-item-count-control/shopping-item-count-control";
+import { ShoppingItem } from "@/context/shopping-list-context";
+import styles from "./shopping-list.module.css";
+
+type ShoppingListGroupedByCategory = {
+  [category: string]: { items: ShoppingItem[] };
+};
 
 const ShoppingList = () => {
   const { updateSearchParams } = useUpdateSearchParams();
+  const { shoppingList } = useShoppingListContext();
+  const shoppingListGroupedByCategory = shoppingList.reduce((acc, item) => {
+    const category = item.categoryName;
+    acc[category] = acc[category] || { items: [] };
+    acc[category].items.push(item);
+    return acc;
+  }, {} as ShoppingListGroupedByCategory);
+
   return (
     <SideBar>
       <div className={styles.shoppingList}>
@@ -37,16 +52,46 @@ const ShoppingList = () => {
             </div>
           </div>
         </div>
-        <div className={styles.shoppingListBody}>
-          <p className={styles.emptyListText}> No items </p>
-        </div>
-        <div className={styles.emptyShoppingListImage}>
-          <Image
-            src="./undraw_shopping_app_flsj 1.svg"
-            fill
-            alt="empty shopping list"
-          />
-        </div>
+        {Object.keys(shoppingListGroupedByCategory).length ? (
+          <div className={styles.shoppingListContiner}>
+            <h2 className={styles.shoppingListHeader}>Shopping list</h2>
+            {Object.keys(shoppingListGroupedByCategory).map((category) => {
+              const categoryShoppingItems =
+                shoppingListGroupedByCategory[category].items;
+              return (
+                <div key={category} className={styles.shoppingListItems}>
+                  <span className={styles.itemCategory}>{category}</span>
+                  {categoryShoppingItems.map((item) => {
+                    return (
+                      <div
+                        key={item.itemName}
+                        className={styles.itemCountContainer}
+                      >
+                        <ShoppingItemCountControl
+                          itemCount={item.itemCount}
+                          itemName={item.itemName}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <>
+            <div className={styles.shoppingListBody}>
+              <p className={styles.emptyListText}> No items </p>
+            </div>
+            <div className={styles.emptyShoppingListImage}>
+              <Image
+                src="./undraw_shopping_app_flsj 1.svg"
+                fill
+                alt="empty shopping list"
+              />
+            </div>
+          </>
+        )}
 
         <div className={styles.inputBackground}>
           <div className={styles.inputContainer}>

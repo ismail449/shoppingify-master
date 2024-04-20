@@ -1,12 +1,39 @@
 .shoppingList {
-  width: 100%;
   height: 100%;
   background-color: var(--shopping-list-background);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
+.shoppingListContiner {
+  width: 80%;
+  margin-top: 44px;
+  margin-inline: auto;
+  overflow-y: auto;
+  padding-right: 5px;
+  padding-bottom: 130px;
+}
+.shoppingListHeader {
+  color: var(--title-color);
+  font-size: var(--xxl-font);
+  font-weight: 700;
+  line-height: 30px;
+  margin-bottom: 40px;
+}
+.itemCategory {
+  font-size: var(--s-font);
+  font-weight: 500;
+  line-height: 17.5px;
+  color: var(--gray-text);
+  display: block;
+  margin-bottom: 25px;
+}
+.shoppingListItems {
+  margin-bottom: 60px;
+}
+.itemCountContainer {
+  margin-bottom: 35px;
+}
 .addItemBackground {
   width: 80%;
   height: 130px;
@@ -52,16 +79,16 @@
 }
 .inputBackground {
   width: 100%;
-  height: 131px;
   position: absolute;
   bottom: 0;
+  padding: 34px 40px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: var(--white);
 }
 .inputContainer {
-  width: 80%;
+  width: 100%;
 }
 
 @media only screen and (max-width: 992px) {

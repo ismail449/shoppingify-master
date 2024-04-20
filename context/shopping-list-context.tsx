@@ -2,7 +2,7 @@
 
 import { useContext, createContext, FC, ReactNode, useState } from "react";
 
-type ShoppingItem = {
+export type ShoppingItem = {
   itemName: string;
   categoryName: string;
   itemCount: number;
