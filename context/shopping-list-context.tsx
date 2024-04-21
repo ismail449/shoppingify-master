@@ -10,10 +10,7 @@ export type ShoppingItem = {
 
 type ShoppingListType = {
   shoppingList: ShoppingItem[];
-  addItemToShoppingList: (item: {
-    itemName: string;
-    categoryName: string;
-  }) => void;
+  addItemToShoppingList: (itemName: string, categoryName?: string) => void;
 };
 
 const ShoppingListContext = createContext<ShoppingListType>({
@@ -25,15 +22,18 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [shoppingList, setShoppingList] = useState<ShoppingItem[]>([]);
-  const addItemToShoppingList = (item: {
-    itemName: string;
-    categoryName: string;
-  }) => {
+  const addItemToShoppingList = (itemName: string, categoryName?: string) => {
     const shoppingItem = shoppingList.find(
-      (shoppingItem) => shoppingItem.itemName === item.itemName
+      (shoppingItem) => shoppingItem.itemName === itemName
     );
     if (!shoppingItem) {
-      setShoppingList([...shoppingList, { ...item, itemCount: 1 }]);
+      if (categoryName) {
+        setShoppingList([
+          ...shoppingList,
+          { categoryName, itemCount: 1, itemName },
+        ]);
+        return;
+      }
       return;
     }
     shoppingItem.itemCount = shoppingItem.itemCount + 1;

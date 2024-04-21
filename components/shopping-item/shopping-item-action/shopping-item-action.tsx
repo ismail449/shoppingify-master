@@ -17,7 +17,7 @@ const ShoppingItemAction: FC<ShoppingItemActionProps> = ({
   return (
     <div>
       <Image
-        onClick={() => addItemToShoppingList({ itemName, categoryName })}
+        onClick={() => addItemToShoppingList(itemName, categoryName)}
         src="./add.svg"
         width={24}
         height={24}
