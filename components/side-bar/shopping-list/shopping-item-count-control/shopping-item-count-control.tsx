@@ -1,5 +1,8 @@
+"use client";
+
 import React, { FC } from "react";
 import Image from "next/image";
+import { useShoppingListContext } from "@/context/shopping-list-context";
 import styles from "./shopping-item-count-control.module.css";
 
 type ShoppingItemCountControlProps = {
@@ -11,6 +14,8 @@ const ShoppingItemCountControl: FC<ShoppingItemCountControlProps> = ({
   itemName,
   itemCount,
 }) => {
+  const { addItemToShoppingList, removeItemFromShoppingList } =
+    useShoppingListContext();
   return (
     <div className={styles.shoppingItemCountControl}>
       <span className={styles.itemName}>{itemName}</span>
@@ -21,14 +26,16 @@ const ShoppingItemCountControl: FC<ShoppingItemCountControlProps> = ({
           height={24}
           alt="add icon"
           className={styles.shoppingItemActionImage}
+          onClick={() => removeItemFromShoppingList(itemName)}
         />
         <span className={styles.itemCount}>{itemCount} pcs</span>
         <Image
-          src="./add.svg"
+          src="./add_primary.svg"
           width={24}
           height={24}
           alt="add icon"
           className={styles.shoppingItemActionImage}
+          onClick={() => addItemToShoppingList(itemName)}
         />
       </div>
     </div>
