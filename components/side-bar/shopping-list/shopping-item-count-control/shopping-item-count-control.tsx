@@ -14,12 +14,26 @@ const ShoppingItemCountControl: FC<ShoppingItemCountControlProps> = ({
   itemName,
   itemCount,
 }) => {
-  const { addItemToShoppingList, removeItemFromShoppingList } =
-    useShoppingListContext();
+  const {
+    addItemToShoppingList,
+    removeItemFromShoppingList,
+    deleteItemFromShoppingList,
+  } = useShoppingListContext();
   return (
     <div className={styles.shoppingItemCountControl}>
       <span className={styles.itemName}>{itemName}</span>
       <div className={styles.itemCountControls}>
+        <div className={styles.deleteIconBackground}>
+          <Image
+            src="./delete.svg"
+            width={18}
+            height={18}
+            alt="add icon"
+            className={styles.shoppingItemActionImage}
+            onClick={() => deleteItemFromShoppingList(itemName)}
+          />
+        </div>
+
         <Image
           src="./remove.svg"
           width={24}

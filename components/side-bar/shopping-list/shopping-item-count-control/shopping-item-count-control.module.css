@@ -27,6 +27,15 @@
   border-radius: 12px;
   background-color: var(--white);
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
+}
+.deleteIconBackground {
+  background-color: var(--primary);
+  padding: 12px 10px;
+  border-radius: 12px;
+}
+
+.itemCountControls img {
+  cursor: pointer;
 }

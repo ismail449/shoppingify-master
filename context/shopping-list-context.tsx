@@ -12,12 +12,14 @@ type ShoppingListType = {
   shoppingList: ShoppingItem[];
   addItemToShoppingList: (itemName: string, categoryName?: string) => void;
   removeItemFromShoppingList: (itemName: string) => void;
+  deleteItemFromShoppingList: (itemName: string) => void;
 };
 
 const ShoppingListContext = createContext<ShoppingListType>({
   shoppingList: [],
   addItemToShoppingList: () => {},
   removeItemFromShoppingList: () => {},
+  deleteItemFromShoppingList: () => {},
 });
 
 export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
@@ -51,13 +53,17 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
     }
     shoppingItem.itemCount = shoppingItem.itemCount - 1;
     if (shoppingItem.itemCount === 0) {
-      const filteredShoppingList = shoppingList.filter(
-        (item) => item.itemName !== itemName
-      );
-      setShoppingList([...filteredShoppingList]);
+      deleteItemFromShoppingList(itemName);
       return;
     }
     setShoppingList([...shoppingList]);
+  };
+
+  const deleteItemFromShoppingList = (itemName: string) => {
+    const filteredShoppingList = shoppingList.filter(
+      (item) => item.itemName !== itemName
+    );
+    setShoppingList([...filteredShoppingList]);
   };
   return (
     <ShoppingListContext.Provider
@@ -65,6 +71,7 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
         shoppingList,
         addItemToShoppingList,
         removeItemFromShoppingList,
+        deleteItemFromShoppingList,
       }}
     >
       {children}
