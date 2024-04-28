@@ -1,6 +1,7 @@
 .shoppingItemCountControl {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .itemName {
@@ -25,17 +26,32 @@
   width: 173.56px;
   height: 44.9px;
   border-radius: 12px;
-  background-color: var(--white);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: 0.3s;
+}
+.itemCountControls:hover {
+  background-color: var(--white);
+}
+
+.itemCountControls:hover .deleteIconBackground {
+  opacity: 1;
+}
+
+.itemCountControls:hover img {
+  opacity: 1;
 }
 .deleteIconBackground {
   background-color: var(--primary);
   padding: 12px 10px;
   border-radius: 12px;
+  opacity: 0;
+  transition: 0.3s;
 }
 
 .itemCountControls img {
+  opacity: 0;
   cursor: pointer;
+  transition: 0.3s;
 }
