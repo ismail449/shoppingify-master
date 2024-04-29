@@ -97,7 +97,7 @@ const ShoppingList = () => {
           <div className={styles.inputContainer}>
             <Input
               placeholder="Enter a name"
-              disabled
+              disabled={!shoppingList.length}
               buttonProps={{
                 buttonText: "Save",
                 buttonOnClick: () => console.log(" hello "),
