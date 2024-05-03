@@ -63,10 +63,7 @@ const ShoppingList = () => {
                   <span className={styles.itemCategory}>{category}</span>
                   {categoryShoppingItems.map((item) => {
                     return (
-                      <div
-                        key={item.itemName}
-                        className={styles.itemCountContainer}
-                      >
+                      <div key={item.itemName}>
                         <ShoppingItemCountControl
                           itemCount={item.itemCount}
                           itemName={item.itemName}
