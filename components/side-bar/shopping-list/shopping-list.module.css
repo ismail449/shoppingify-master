@@ -6,7 +6,7 @@
   align-items: center;
 }
 .shoppingListContiner {
-  width: 80%;
+  width: 82%;
   margin-top: 44px;
   margin-inline: auto;
   overflow-y: auto;
@@ -90,6 +90,11 @@
 }
 
 @media only screen and (max-width: 992px) {
+  .shoppingListContiner {
+    width: 95%;
+    margin-top: 32px;
+    padding-right: 0px;
+  }
   .addItemBackground {
     width: 83%;
     height: 119px;
@@ -107,5 +112,8 @@
   }
   .emptyListText {
     margin-top: 100px;
+  }
+  .inputBackground {
+    padding: 18px 20px;
   }
 }
