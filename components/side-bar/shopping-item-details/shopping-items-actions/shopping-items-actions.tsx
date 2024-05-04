@@ -3,11 +3,14 @@ import React, { FC } from "react";
 import { useFormState } from "react-dom";
 import Button from "@/components/button/button";
 import { deleteShoppingItem } from "@/server-actions/server-actions";
-import styles from "./shopping-items-actions.module.css";
 import { useRouter, usePathname } from "next/navigation";
+import { useShoppingListContext } from "@/context/shopping-list-context";
+import styles from "./shopping-items-actions.module.css";
 
 type ShoppingItemsProps = {
+  itemName: string;
   itemId: string;
+  categoryName: string;
 };
 
 const initialFormState = {
@@ -15,15 +18,26 @@ const initialFormState = {
   message: "",
 };
 
-const ShoppingItemasActions: FC<ShoppingItemsProps> = ({ itemId }) => {
+const ShoppingItemsActions: FC<ShoppingItemsProps> = ({
+  itemId,
+  categoryName,
+  itemName,
+}) => {
   const router = useRouter();
   const pathname = usePathname();
+  const { addItemToShoppingList, deleteItemFromShoppingList } =
+    useShoppingListContext();
   const handleFormSubmit = async (previousState: any, formData: FormData) => {
-    const actionResponse = await deleteShoppingItem(previousState, formData);
-    if (actionResponse?.isError) {
-      return actionResponse;
+    const itemId = formData.get("delete") as string;
+    if (!itemId) {
+      addItemToShoppingList(itemName, categoryName);
+      return previousState;
     }
-    router.push(pathname);
+    deleteItemFromShoppingList(itemName);
+    const actionResponse = await deleteShoppingItem(previousState, formData);
+    if (!actionResponse?.isError) {
+      router.push(pathname);
+    }
     return actionResponse;
   };
 
@@ -44,4 +58,4 @@ const ShoppingItemasActions: FC<ShoppingItemsProps> = ({ itemId }) => {
   );
 };
 
-export default ShoppingItemasActions;
+export default ShoppingItemsActions;

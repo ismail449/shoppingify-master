@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import SideBar from "../side-bar";
 import ImageWithFallback from "@/components/image-with-fallback/image-with-fallback";
-import ShoppingItemasActions from "./shopping-items-actions/shopping-items-actions";
+import ShoppingItemsActions from "./shopping-items-actions/shopping-items-actions";
 import { prisma } from "@/lib/prisma";
 import styles from "./shopping-item-details.module.css";
 
@@ -65,7 +65,11 @@ const ShoppingItemDetails: FC<ShoppingItemDetailsProps> = async ({ id }) => {
               {item?.note ?? "No note was found"}
             </p>
           </div>
-          <ShoppingItemasActions itemId={item.id} />
+          <ShoppingItemsActions
+            itemName={item.name}
+            itemId={item.id}
+            categoryName={category?.name ?? ""}
+          />
         </div>
       </div>
     </SideBar>
