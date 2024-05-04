@@ -2,17 +2,20 @@
 
 import React, { FC } from "react";
 import Image from "next/image";
+import Checkbox from "@/components/checkbox/checkbox";
 import { useShoppingListContext } from "@/context/shopping-list-context";
 import styles from "./shopping-item-count-control.module.css";
 
-type ShoppingItemCountControlProps = {
+type Props = {
   itemName: string;
   itemCount: number;
+  showCheckbox?: boolean;
 };
 
-const ShoppingItemCountControl: FC<ShoppingItemCountControlProps> = ({
+const ShoppingItemCountControl: FC<Props> = ({
   itemName,
   itemCount,
+  showCheckbox = false,
 }) => {
   const {
     addItemToShoppingList,
@@ -21,7 +24,11 @@ const ShoppingItemCountControl: FC<ShoppingItemCountControlProps> = ({
   } = useShoppingListContext();
   return (
     <div className={styles.shoppingItemCountControl}>
-      <span className={styles.itemName}>{itemName}</span>
+      <Checkbox
+        onChange={() => console.log("test")}
+        showCheckbox={showCheckbox}
+        label={itemName}
+      />
       <div className={styles.itemCountControls}>
         <div className={styles.deleteIconBackground}>
           <Image
