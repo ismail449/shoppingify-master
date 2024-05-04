@@ -12,7 +12,7 @@ import styles from "./button.module.css";
 
 type ButtonProps = {
   children: ReactNode;
-  buttonType?: "primary" | "cancel" | "complete" | "delete" | "white";
+  buttonType?: "primary" | "transparent" | "complete" | "danger" | "white";
 } & ComponentProps<"button">;
 
 const Button: FC<ButtonProps> = ({

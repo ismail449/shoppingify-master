@@ -33,7 +33,7 @@ const ShoppingItemasActions: FC<ShoppingItemsProps> = ({ itemId }) => {
     <form action={formAction}>
       <span>{state?.isError ? state.message : null}</span>
       <div className={styles.buttonsContainer}>
-        <Button value={itemId} name="delete" buttonType="cancel">
+        <Button value={itemId} name="delete" buttonType="transparent">
           Delete
         </Button>
         <Button type="submit" buttonType="primary">

@@ -71,7 +71,7 @@ const AddItemForm = () => {
             />
           </div>
           <div className={styles.buttonsContainer}>
-            <Button buttonType="cancel">
+            <Button buttonType="transparent">
               <Link href="/">Cancel</Link>
             </Button>
             <Button type="submit" buttonType="primary">

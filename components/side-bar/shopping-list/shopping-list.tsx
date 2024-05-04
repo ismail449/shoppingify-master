@@ -103,16 +103,20 @@ const ShoppingList = () => {
         )}
 
         <div className={styles.inputBackground}>
-          <div className={styles.inputContainer}>
-            <Input
-              placeholder="Enter a name"
-              disabled={!shoppingList.length}
-              buttonProps={{
-                buttonText: "Save",
-                buttonOnClick: () => console.log(" hello "),
-              }}
-            />
-          </div>
+          {isEdit ? (
+            <div>buttons</div>
+          ) : (
+            <div className={styles.inputContainer}>
+              <Input
+                placeholder="Enter a name"
+                disabled={!shoppingList.length}
+                buttonProps={{
+                  buttonText: "Save",
+                  buttonOnClick: () => console.log(" hello "),
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </SideBar>

@@ -22,11 +22,11 @@
   background-color: var(--complete-background);
 }
 
-.delete {
+.danger {
   background-color: var(--danger-background);
 }
 
-.cancel {
+.transparent {
   background-color: transparent;
   color: var(--title-color);
 }
