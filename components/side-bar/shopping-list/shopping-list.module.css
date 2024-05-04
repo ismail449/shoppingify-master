@@ -18,8 +18,17 @@
   font-size: var(--xxl-font);
   font-weight: 700;
   line-height: 30px;
+}
+.editIcon {
+  cursor: pointer;
+}
+.shoppingListHeaderAndEditIconContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 40px;
 }
+
 .itemCategory {
   font-size: var(--s-font);
   font-weight: 500;

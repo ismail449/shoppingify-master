@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import SideBar from "../side-bar";
 import Input from "@/components/input/input";
@@ -15,11 +15,12 @@ type ShoppingListGroupedByCategory = {
 };
 
 const ShoppingList = () => {
+  const [isEdit, setIsEdit] = useState(false);
   const { updateSearchParams } = useUpdateSearchParams();
   const { shoppingList } = useShoppingListContext();
   const shoppingListGroupedByCategory = shoppingList.reduce((acc, item) => {
     const category = item.categoryName;
-    acc[category] = acc[category] || { items: [] };
+    acc[category] = acc[category] ?? { items: [] };
     acc[category].items.push(item);
     return acc;
   }, {} as ShoppingListGroupedByCategory);
@@ -54,7 +55,17 @@ const ShoppingList = () => {
         </div>
         {Object.keys(shoppingListGroupedByCategory).length ? (
           <div className={styles.shoppingListContiner}>
-            <h2 className={styles.shoppingListHeader}>Shopping list</h2>
+            <div className={styles.shoppingListHeaderAndEditIconContainer}>
+              <h2 className={styles.shoppingListHeader}>Shopping list</h2>
+              <Image
+                src="/edit.svg"
+                width={24}
+                height={24}
+                alt="toggle between edit and complete mode icon"
+                className={styles.editIcon}
+                onClick={() => setIsEdit((isEdit) => !isEdit)}
+              />
+            </div>
             {Object.keys(shoppingListGroupedByCategory).map((category) => {
               const categoryShoppingItems =
                 shoppingListGroupedByCategory[category].items;
@@ -67,6 +78,7 @@ const ShoppingList = () => {
                         <ShoppingItemCountControl
                           itemCount={item.itemCount}
                           itemName={item.itemName}
+                          showCheckbox={isEdit}
                         />
                       </div>
                     );
