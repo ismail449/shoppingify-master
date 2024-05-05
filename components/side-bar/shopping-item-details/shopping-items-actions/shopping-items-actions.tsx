@@ -1,11 +1,10 @@
 "use client";
 import React, { FC } from "react";
-import { useFormState } from "react-dom";
 import Button from "@/components/button/button";
+import ButtonsActions from "@/components/buttons-actions/buttons-actions";
 import { deleteShoppingItem } from "@/server-actions/server-actions";
 import { useRouter, usePathname } from "next/navigation";
 import { useShoppingListContext } from "@/context/shopping-list-context";
-import styles from "./shopping-items-actions.module.css";
 
 type ShoppingItemsProps = {
   itemName: string;
@@ -41,20 +40,18 @@ const ShoppingItemsActions: FC<ShoppingItemsProps> = ({
     return actionResponse;
   };
 
-  const [state, formAction] = useFormState(handleFormSubmit, initialFormState);
-
   return (
-    <form action={formAction}>
-      <span>{state?.isError ? state.message : null}</span>
-      <div className={styles.buttonsContainer}>
-        <Button value={itemId} name="delete" buttonType="transparent">
-          Delete
-        </Button>
-        <Button type="submit" buttonType="primary">
-          Add to list
-        </Button>
-      </div>
-    </form>
+    <ButtonsActions
+      handleFormSubmit={handleFormSubmit}
+      initialFormState={initialFormState}
+    >
+      <Button value={itemId} name="delete" buttonType="transparent">
+        Delete
+      </Button>
+      <Button type="submit" buttonType="primary">
+        Add to list
+      </Button>
+    </ButtonsActions>
   );
 };
 
