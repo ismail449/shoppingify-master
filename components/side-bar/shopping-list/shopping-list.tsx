@@ -9,6 +9,7 @@ import { useShoppingListContext } from "@/context/shopping-list-context";
 import ShoppingItemCountControl from "./shopping-item-count-control/shopping-item-count-control";
 import { ShoppingItem } from "@/context/shopping-list-context";
 import styles from "./shopping-list.module.css";
+import ShoppingListActions from "./shopping-list-actions/shopping-list-actions";
 
 type ShoppingListGroupedByCategory = {
   [category: string]: { items: ShoppingItem[] };
@@ -104,7 +105,7 @@ const ShoppingList = () => {
 
         <div className={styles.inputBackground}>
           {isEdit ? (
-            <div>buttons</div>
+            <ShoppingListActions shoppingListId="" />
           ) : (
             <div className={styles.inputContainer}>
               <Input
