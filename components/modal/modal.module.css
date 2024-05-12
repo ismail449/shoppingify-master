@@ -1,0 +1,14 @@
+.modal {
+  padding: 15px 30px 30px 38px;
+  border: 0;
+  border-radius: 24px;
+  margin: auto;
+  position: relative;
+}
+
+.modalCloseButton {
+  position: absolute;
+  top: 15px;
+  right: 30px;
+  cursor: pointer;
+}
