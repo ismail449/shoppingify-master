@@ -3,15 +3,19 @@ import React, { useState, useEffect, useRef, ReactNode } from "react";
 import Image from "next/image";
 import styles from "./modal.module.css";
 
-interface ModalProps {
+type ModalProps = {
   isOpen?: boolean;
+  onClose?: () => void;
   children: ReactNode;
-}
+};
 
-const Modal: React.FC<ModalProps> = ({ children, isOpen = false }) => {
+const Modal: React.FC<ModalProps> = ({ children, isOpen = false, onClose }) => {
   const [isModalOpen, setIsModalOpen] = useState(isOpen);
   const modalRef = useRef<HTMLDialogElement>(null);
   const handleModalClose = () => {
+    if (onClose) {
+      onClose();
+    }
     setIsModalOpen(false);
   };
 
