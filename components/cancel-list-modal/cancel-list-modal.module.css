@@ -1,0 +1,13 @@
+.modalTextContent {
+  font-size: var(--xxl-font);
+  font-weight: 500;
+  line-height: 30px;
+  margin-bottom: 35px;
+}
+.cancelListModalContainer {
+  max-width: 508px;
+}
+.cancelListModalActions {
+  display: flex;
+  justify-content: flex-end;
+}
