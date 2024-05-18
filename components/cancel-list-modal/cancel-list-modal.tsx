@@ -1,10 +1,16 @@
-import React from "react";
+import React, { FC } from "react";
 import Modal from "../modal/modal";
 import Button from "../button/button";
 import styles from "./cancel-list-modal.module.css";
-const CancelListModal = () => {
+
+type Props = {
+  isOpen?: boolean;
+  onClose?: () => void;
+};
+
+const CancelListModal: FC<Props> = ({ isOpen = false, onClose }) => {
   return (
-    <Modal isOpen>
+    <Modal isOpen={isOpen} onClose={onClose}>
       <div className={styles.cancelListModalContainer}>
         <p className={styles.modalTextContent}>
           Are you sure that you want to cancel this list?
