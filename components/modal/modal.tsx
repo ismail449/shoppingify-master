@@ -43,8 +43,8 @@ const Modal: React.FC<ModalProps> = ({ children, isOpen = false }) => {
         src="/close.svg"
         alt="modal close button"
         onClick={handleModalClose}
-        width={13}
-        height={13}
+        width={24}
+        height={24}
       />
       {children}
     </dialog>
