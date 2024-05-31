@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "@/lib/getServerSession";
 import { revalidatePath } from "next/cache";
 import { signOut } from "next-auth/react";
+import { ShoppingItem } from "@/context/shopping-list-context";
 
 const getUser = async () => {
   const session = await getServerSession();
@@ -110,4 +111,22 @@ export const deleteShoppingItem = async (
   const itemId = formData.get("delete") as string;
   await prisma.item.delete({ where: { id: itemId } });
   revalidatePath("/");
+};
+
+export const createShoppingList = async (shoppingListName = "ShoppingList") => {
+  try {
+    const user = await getUser();
+
+    if (!user) return;
+    const shoppingList = await prisma.shoppingList.create({
+      data: {
+        name: shoppingListName,
+        listStatus: "active",
+        userId: user.id,
+      },
+    });
+    console.log(shoppingList);
+  } catch (error) {
+    console.log(error);
+  }
 };
