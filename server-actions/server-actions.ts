@@ -125,13 +125,13 @@ export const createShoppingList = async (shoppingListName = "ShoppingList") => {
         userId: user.id,
       },
     });
-    console.log(shoppingList);
+    return shoppingList;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getActiveShoppingListItems = async () => {
+const getActiveShoppingList = async () => {
   try {
     const user = await getUser();
 
@@ -141,6 +141,19 @@ export const getActiveShoppingListItems = async () => {
         listStatus: "active",
       },
     });
+    if (!activeShoppingList) {
+      const newActiveShoppingList = await createShoppingList();
+      return newActiveShoppingList;
+    }
+    return activeShoppingList;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getActiveShoppingListItems = async () => {
+  try {
+    const activeShoppingList = await getActiveShoppingList();
     const shoppingItems = await prisma.shoppingItem.findMany({
       where: {
         shoppingListId: activeShoppingList?.id,
