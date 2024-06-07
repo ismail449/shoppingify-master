@@ -164,3 +164,22 @@ export const getActiveShoppingListItems = async () => {
     console.log(error);
   }
 };
+
+export const addItemToActiveShoppingList = async (item: ShoppingItem) => {
+  try {
+    const { categoryName, itemCount, itemName } = item;
+    const activeShoppingList = await getActiveShoppingList();
+    if (!activeShoppingList) return;
+    const shoppingItem = prisma.shoppingItem.create({
+      data: {
+        categoryName,
+        itemCount,
+        itemName,
+        shoppingListId: activeShoppingList.id,
+      },
+    });
+    return shoppingItem;
+  } catch (error) {
+    console.log(error);
+  }
+};
