@@ -3,7 +3,6 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "@/lib/getServerSession";
 import { revalidatePath } from "next/cache";
 import { signOut } from "next-auth/react";
-import { ShoppingItem } from "@/context/shopping-list-context";
 
 const getUser = async () => {
   const session = await getServerSession();
@@ -165,7 +164,11 @@ export const getActiveShoppingListItems = async () => {
   }
 };
 
-export const addItemToActiveShoppingList = async (item: ShoppingItem) => {
+export const addItemToActiveShoppingList = async (item: {
+  categoryName: string;
+  itemCount: number;
+  itemName: string;
+}) => {
   try {
     const { categoryName, itemCount, itemName } = item;
     const activeShoppingList = await getActiveShoppingList();
@@ -179,6 +182,22 @@ export const addItemToActiveShoppingList = async (item: ShoppingItem) => {
       },
     });
     return shoppingItem;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteItemFromActiveShoppingList = async (itemName: string) => {
+  try {
+    const activeShoppingList = await getActiveShoppingList();
+    await prisma.shoppingItem.deleteMany({
+      where: {
+        itemName: itemName,
+        shoppingListId: activeShoppingList?.id,
+      },
+    });
+    const newActiveShoppingList = await getActiveShoppingListItems();
+    return newActiveShoppingList;
   } catch (error) {
     console.log(error);
   }
