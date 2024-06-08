@@ -50,3 +50,11 @@
   cursor: pointer;
   transition: 0.3s;
 }
+
+.disabledImage {
+  pointer-events: none;
+}
+
+.itemCountControls:has(.disabledImage) {
+  cursor: not-allowed;
+}
