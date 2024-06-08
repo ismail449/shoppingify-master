@@ -18,7 +18,7 @@ type ShoppingListGroupedByCategory = {
 const ShoppingList = () => {
   const [isEdit, setIsEdit] = useState(false);
   const { updateSearchParams } = useUpdateSearchParams();
-  const { shoppingList } = useShoppingListContext();
+  const { shoppingList, loading } = useShoppingListContext();
   const shoppingListGroupedByCategory = shoppingList.reduce((acc, item) => {
     const category = item.categoryName;
     acc[category] = acc[category] ?? { items: [] };
@@ -91,7 +91,9 @@ const ShoppingList = () => {
         ) : (
           <>
             <div className={styles.shoppingListBody}>
-              <p className={styles.emptyListText}> No items </p>
+              <p className={styles.emptyListText}>
+                {loading ? "Loading..." : "No items"}
+              </p>
             </div>
             <div className={styles.emptyShoppingListImage}>
               <Image
