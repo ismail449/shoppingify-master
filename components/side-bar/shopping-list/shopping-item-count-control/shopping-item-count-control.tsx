@@ -25,14 +25,9 @@ const ShoppingItemCountControl: FC<Props> = ({
   } = useShoppingListContext();
   const [loading, setLoading] = useState(false);
 
-  const handleOnItemDelete = async () => {
+  const handleOnItemAction = async (itemAction: (itemName: string) => void) => {
     setLoading(true);
-    await deleteItemFromShoppingList(itemName);
-    setLoading(false);
-  };
-  const handleOnItemCountUpdate = async () => {
-    setLoading(true);
-    await addItemToShoppingList(itemName);
+    await itemAction(itemName);
     setLoading(false);
   };
   return (
@@ -52,7 +47,7 @@ const ShoppingItemCountControl: FC<Props> = ({
             className={`${styles.shoppingItemActionImage} ${
               loading ? styles.disabledImage : ""
             }`}
-            onClick={handleOnItemDelete}
+            onClick={() => handleOnItemAction(deleteItemFromShoppingList)}
           />
         </div>
         <Image
@@ -84,7 +79,7 @@ const ShoppingItemCountControl: FC<Props> = ({
           className={`${styles.shoppingItemActionImage} ${
             loading ? styles.disabledImage : ""
           }`}
-          onClick={handleOnItemCountUpdate}
+          onClick={() => handleOnItemAction(addItemToShoppingList)}
         />
       </div>
     </div>
