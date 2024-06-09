@@ -30,6 +30,11 @@ const ShoppingItemCountControl: FC<Props> = ({
     await deleteItemFromShoppingList(itemName);
     setLoading(false);
   };
+  const handleOnItemCountUpdate = async () => {
+    setLoading(true);
+    await addItemToShoppingList(itemName);
+    setLoading(false);
+  };
   return (
     <div className={styles.shoppingItemCountControl}>
       <Checkbox
@@ -79,7 +84,7 @@ const ShoppingItemCountControl: FC<Props> = ({
           className={`${styles.shoppingItemActionImage} ${
             loading ? styles.disabledImage : ""
           }`}
-          onClick={() => addItemToShoppingList(itemName)}
+          onClick={handleOnItemCountUpdate}
         />
       </div>
     </div>

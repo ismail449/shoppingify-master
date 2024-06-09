@@ -12,6 +12,7 @@ import {
   addItemToActiveShoppingList,
   deleteItemFromActiveShoppingList,
   getActiveShoppingListItems,
+  updateShoppingItemCount,
 } from "@/server-actions/server-actions";
 
 export type ShoppingItem = {
@@ -58,10 +59,10 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
     itemName: string,
     categoryName?: string
   ) => {
-    const shoppingItem = shoppingList.find(
+    const shoppingItemIndex = shoppingList.findIndex(
       (shoppingItem) => shoppingItem.itemName === itemName
     );
-    if (!shoppingItem) {
+    if (shoppingItemIndex === -1) {
       if (!categoryName) return;
       const newItem = await addItemToActiveShoppingList({
         categoryName,
@@ -72,8 +73,17 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
       setShoppingList((shoppingList) => [...shoppingList, newItem]);
       return;
     }
-    shoppingItem.itemCount = shoppingItem.itemCount + 1;
-    setShoppingList((shoppingList) => [...shoppingList]);
+    const shoppingItem = shoppingList[shoppingItemIndex];
+    const itemCount = shoppingItem.itemCount + 1;
+    const updatedShoppingItem = await updateShoppingItemCount(
+      itemCount,
+      shoppingItem.id
+    );
+    if (!updatedShoppingItem) return;
+    setShoppingList((shoppingList) => {
+      shoppingList[shoppingItemIndex] = updatedShoppingItem;
+      return [...shoppingList];
+    });
   };
 
   const removeItemFromShoppingList = (itemName: string) => {

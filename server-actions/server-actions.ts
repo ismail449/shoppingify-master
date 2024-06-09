@@ -202,3 +202,22 @@ export const deleteItemFromActiveShoppingList = async (itemName: string) => {
     console.log(error);
   }
 };
+
+export const updateShoppingItemCount = async (
+  count: number,
+  itemId: string
+) => {
+  try {
+    const updatedShoppingItem = await prisma.shoppingItem.update({
+      where: {
+        id: itemId,
+      },
+      data: {
+        itemCount: count,
+      },
+    });
+    return updatedShoppingItem;
+  } catch (error) {
+    console.log(error);
+  }
+};
