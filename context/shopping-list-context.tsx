@@ -38,6 +38,13 @@ const ShoppingListContext = createContext<ShoppingListType>({
   loading: true,
 });
 
+const findItemIndex = (itemName: string, shoppingList: ShoppingItem[]) => {
+  const shoppingItemIndex = shoppingList.findIndex(
+    (shoppingItem) => shoppingItem.itemName === itemName
+  );
+  return shoppingItemIndex;
+};
+
 export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
@@ -59,9 +66,7 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
     itemName: string,
     categoryName?: string
   ) => {
-    const shoppingItemIndex = shoppingList.findIndex(
-      (shoppingItem) => shoppingItem.itemName === itemName
-    );
+    const shoppingItemIndex = findItemIndex(itemName, shoppingList);
     if (shoppingItemIndex === -1) {
       if (!categoryName) return;
       const newItem = await addItemToActiveShoppingList({
@@ -81,9 +86,7 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
     );
     if (!updatedShoppingItem) return;
     setShoppingList((shoppingList) => {
-      const updatedShoppingItemIndex = shoppingList.findIndex(
-        (shoppingItem) => shoppingItem.id === updatedShoppingItem.id
-      );
+      const updatedShoppingItemIndex = findItemIndex(itemName, shoppingList);
       shoppingList[updatedShoppingItemIndex] = updatedShoppingItem;
       return [...shoppingList];
     });
