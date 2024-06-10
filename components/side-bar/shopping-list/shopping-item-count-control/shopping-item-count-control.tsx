@@ -58,7 +58,7 @@ const ShoppingItemCountControl: FC<Props> = ({
           className={`${styles.shoppingItemActionImage} ${
             loading ? styles.disabledImage : ""
           }`}
-          onClick={() => removeItemFromShoppingList(itemName)}
+          onClick={() => handleOnItemAction(removeItemFromShoppingList)}
         />
         <span className={styles.itemCount}>
           {loading ? (

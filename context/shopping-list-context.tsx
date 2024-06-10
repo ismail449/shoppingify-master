@@ -92,19 +92,24 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
     });
   };
 
-  const removeItemFromShoppingList = (itemName: string) => {
-    const shoppingItem = shoppingList.find(
-      (shoppingItem) => shoppingItem.itemName === itemName
-    );
-    if (!shoppingItem) {
-      return;
-    }
-    shoppingItem.itemCount = shoppingItem.itemCount - 1;
-    if (shoppingItem.itemCount === 0) {
+  const removeItemFromShoppingList = async (itemName: string) => {
+    const shoppingItemIndex = findItemIndex(itemName, shoppingList);
+    const shoppingItem = shoppingList[shoppingItemIndex];
+    const itemCount = shoppingItem.itemCount - 1;
+    if (itemCount === 0) {
       deleteItemFromShoppingList(itemName);
       return;
     }
-    setShoppingList([...shoppingList]);
+    const updatedShoppingItem = await updateShoppingItemCount(
+      itemCount,
+      shoppingItem.id
+    );
+    if (!updatedShoppingItem) return;
+    setShoppingList((shoppingList) => {
+      const updatedShoppingItemIndex = findItemIndex(itemName, shoppingList);
+      shoppingList[updatedShoppingItemIndex] = updatedShoppingItem;
+      return [...shoppingList];
+    });
   };
 
   const deleteItemFromShoppingList = async (itemName: string) => {
