@@ -10,7 +10,7 @@ import {
 } from "react";
 import {
   addItemToActiveShoppingList,
-  deleteItemFromActiveShoppingList,
+  deleteShoppingListItem,
   getActiveShoppingListItems,
   updateShoppingItemCount,
 } from "@/server-actions/server-actions";
@@ -108,11 +108,16 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
   };
 
   const deleteItemFromShoppingList = async (itemName: string) => {
-    const filteredShoppingList = await deleteItemFromActiveShoppingList(
-      itemName
-    );
-    if (!filteredShoppingList) return;
-    setShoppingList([...filteredShoppingList]);
+    const shoppingItemIndex = findItemIndex(itemName, shoppingList);
+    const shoppingItem = shoppingList[shoppingItemIndex];
+    const deletedShoppingItem = await deleteShoppingListItem(shoppingItem.id);
+    if (!deletedShoppingItem) return;
+    setShoppingList((shoppingList) => {
+      const newShoppingList = shoppingList.filter(
+        (item) => item.id !== deletedShoppingItem.id
+      );
+      return [...newShoppingList];
+    });
   };
   return (
     <ShoppingListContext.Provider

@@ -187,17 +187,14 @@ export const addItemToActiveShoppingList = async (item: {
   }
 };
 
-export const deleteItemFromActiveShoppingList = async (itemName: string) => {
+export const deleteShoppingListItem = async (itemId: string) => {
   try {
-    const activeShoppingList = await getActiveShoppingList();
-    await prisma.shoppingItem.deleteMany({
+    const deleteUsers = await prisma.shoppingItem.delete({
       where: {
-        itemName: itemName,
-        shoppingListId: activeShoppingList?.id,
+        id: itemId,
       },
     });
-    const newActiveShoppingList = await getActiveShoppingListItems();
-    return newActiveShoppingList;
+    return deleteUsers;
   } catch (error) {
     console.log(error);
   }
