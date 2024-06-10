@@ -81,7 +81,10 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
     );
     if (!updatedShoppingItem) return;
     setShoppingList((shoppingList) => {
-      shoppingList[shoppingItemIndex] = updatedShoppingItem;
+      const updatedShoppingItemIndex = shoppingList.findIndex(
+        (shoppingItem) => shoppingItem.id === updatedShoppingItem.id
+      );
+      shoppingList[updatedShoppingItemIndex] = updatedShoppingItem;
       return [...shoppingList];
     });
   };
