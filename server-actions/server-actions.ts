@@ -130,7 +130,7 @@ export const createShoppingList = async (shoppingListName = "ShoppingList") => {
   }
 };
 
-const getActiveShoppingList = async () => {
+export const getActiveShoppingList = async () => {
   try {
     const user = await getUser();
 

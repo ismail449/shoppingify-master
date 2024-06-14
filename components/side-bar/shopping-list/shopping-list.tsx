@@ -18,7 +18,7 @@ type ShoppingListGroupedByCategory = {
 const ShoppingList = () => {
   const [isEdit, setIsEdit] = useState(false);
   const { updateSearchParams } = useUpdateSearchParams();
-  const { shoppingList, loading } = useShoppingListContext();
+  const { shoppingList, loading, shoppingListInfo } = useShoppingListContext();
   const shoppingListGroupedByCategory = shoppingList.reduce((acc, item) => {
     const category = item.categoryName;
     acc[category] = acc[category] ?? { items: [] };
@@ -57,7 +57,9 @@ const ShoppingList = () => {
         {Object.keys(shoppingListGroupedByCategory).length ? (
           <div className={styles.shoppingListContiner}>
             <div className={styles.shoppingListHeaderAndEditIconContainer}>
-              <h2 className={styles.shoppingListHeader}>Shopping list</h2>
+              <h2 className={styles.shoppingListHeader}>
+                {shoppingListInfo?.name ?? "Loading..."}
+              </h2>
               <Image
                 src="/edit.svg"
                 width={24}

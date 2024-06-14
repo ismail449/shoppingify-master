@@ -11,9 +11,11 @@ import {
 import {
   addItemToActiveShoppingList,
   deleteShoppingListItem,
+  getActiveShoppingList,
   getActiveShoppingListItems,
   updateShoppingItemCount,
 } from "@/server-actions/server-actions";
+import { ShoppingList } from "@prisma/client";
 
 export type ShoppingItem = {
   itemName: string;
@@ -28,6 +30,7 @@ type ShoppingListType = {
   removeItemFromShoppingList: (itemName: string) => void;
   deleteItemFromShoppingList: (itemName: string) => void;
   loading: boolean;
+  shoppingListInfo: ShoppingList | null;
 };
 
 const ShoppingListContext = createContext<ShoppingListType>({
@@ -36,6 +39,7 @@ const ShoppingListContext = createContext<ShoppingListType>({
   removeItemFromShoppingList: () => {},
   deleteItemFromShoppingList: () => {},
   loading: true,
+  shoppingListInfo: null,
 });
 
 const findItemIndex = (itemName: string, shoppingList: ShoppingItem[]) => {
@@ -49,18 +53,23 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [shoppingList, setShoppingList] = useState<ShoppingItem[]>([]);
+  const [shoppingListInfo, setShoppingListInfo] = useState<ShoppingList | null>(
+    null
+  );
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const fetchActiveShoppingList = async () => {
+      const activeShoppingList = await getActiveShoppingListItems();
+      const shoppingListInfo = await getActiveShoppingList();
+      if (!activeShoppingList || !shoppingListInfo) return;
+      setShoppingList(activeShoppingList);
+      setShoppingListInfo(shoppingListInfo);
+      setLoading(false);
+    };
+
     fetchActiveShoppingList();
   }, []);
-
-  const fetchActiveShoppingList = async () => {
-    const activeShoppingList = await getActiveShoppingListItems();
-    if (!activeShoppingList) return;
-    setShoppingList(activeShoppingList);
-    setLoading(false);
-  };
 
   const addItemToShoppingList = async (
     itemName: string,
@@ -132,6 +141,7 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
         removeItemFromShoppingList,
         deleteItemFromShoppingList,
         loading,
+        shoppingListInfo,
       }}
     >
       {children}
