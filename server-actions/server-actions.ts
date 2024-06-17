@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "@/lib/getServerSession";
 import { revalidatePath } from "next/cache";
 import { signOut } from "next-auth/react";
+import { ShoppingList } from "@prisma/client";
 
 const getUser = async () => {
   const session = await getServerSession();
@@ -214,6 +215,24 @@ export const updateShoppingItemCount = async (
       },
     });
     return updatedShoppingItem;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateActiveShoppingList = async (shoppingList: ShoppingList) => {
+  try {
+    const activeShoppingList = await getActiveShoppingList();
+    const updatedShoppingList = await prisma.shoppingList.update({
+      where: {
+        id: activeShoppingList?.id,
+      },
+      data: {
+        name: shoppingList.name ?? activeShoppingList?.name,
+        listStatus: shoppingList.listStatus ?? shoppingList.listStatus,
+      },
+    });
+    return updatedShoppingList;
   } catch (error) {
     console.log(error);
   }
