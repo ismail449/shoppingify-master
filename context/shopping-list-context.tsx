@@ -14,6 +14,7 @@ import {
   getActiveShoppingList,
   getActiveShoppingListItems,
   updateShoppingItemCount,
+  updateActiveShoppingList,
 } from "@/server-actions/server-actions";
 import { ShoppingList } from "@prisma/client";
 
@@ -29,6 +30,7 @@ type ShoppingListType = {
   addItemToShoppingList: (itemName: string, categoryName?: string) => void;
   removeItemFromShoppingList: (itemName: string) => void;
   deleteItemFromShoppingList: (itemName: string) => void;
+  updateShoppingListName: (name: string) => void;
   loading: boolean;
   shoppingListInfo: ShoppingList | null;
 };
@@ -38,6 +40,7 @@ const ShoppingListContext = createContext<ShoppingListType>({
   addItemToShoppingList: () => {},
   removeItemFromShoppingList: () => {},
   deleteItemFromShoppingList: () => {},
+  updateShoppingListName: () => {},
   loading: true,
   shoppingListInfo: null,
 });
@@ -70,6 +73,16 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
 
     fetchActiveShoppingList();
   }, []);
+
+  const updateShoppingListName = async (newName: string) => {
+    if (!shoppingListInfo) return;
+    const updatedShoppingListInfo = {
+      ...shoppingListInfo,
+      name: newName,
+    };
+    const updatedList = await updateActiveShoppingList(updatedShoppingListInfo);
+    if (updatedList) setShoppingListInfo(updatedList);
+  };
 
   const addItemToShoppingList = async (
     itemName: string,
@@ -140,6 +153,7 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
         addItemToShoppingList,
         removeItemFromShoppingList,
         deleteItemFromShoppingList,
+        updateShoppingListName,
         loading,
         shoppingListInfo,
       }}

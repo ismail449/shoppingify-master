@@ -8,8 +8,8 @@ import Button from "@/components/button/button";
 import { useShoppingListContext } from "@/context/shopping-list-context";
 import ShoppingItemCountControl from "./shopping-item-count-control/shopping-item-count-control";
 import { ShoppingItem } from "@/context/shopping-list-context";
-import styles from "./shopping-list.module.css";
 import ShoppingListActions from "./shopping-list-actions/shopping-list-actions";
+import styles from "./shopping-list.module.css";
 
 type ShoppingListGroupedByCategory = {
   [category: string]: { items: ShoppingItem[] };
@@ -18,13 +18,18 @@ type ShoppingListGroupedByCategory = {
 const ShoppingList = () => {
   const [isEdit, setIsEdit] = useState(false);
   const { updateSearchParams } = useUpdateSearchParams();
-  const { shoppingList, loading, shoppingListInfo } = useShoppingListContext();
+  const { shoppingList, loading, shoppingListInfo, updateShoppingListName } =
+    useShoppingListContext();
   const shoppingListGroupedByCategory = shoppingList.reduce((acc, item) => {
     const category = item.categoryName;
     acc[category] = acc[category] ?? { items: [] };
     acc[category].items.push(item);
     return acc;
   }, {} as ShoppingListGroupedByCategory);
+
+  const handleUpdateShoppingListName = async (name: string) => {
+    await updateShoppingListName(name);
+  };
 
   return (
     <SideBar>
@@ -117,7 +122,7 @@ const ShoppingList = () => {
                 disabled={!shoppingList.length}
                 buttonProps={{
                   buttonText: "Save",
-                  buttonOnClick: () => console.log(" hello "),
+                  buttonOnClick: handleUpdateShoppingListName,
                 }}
               />
             </div>
