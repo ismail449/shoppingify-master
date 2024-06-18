@@ -21,15 +21,25 @@
 .input textarea {
   padding-inline-start: 20px;
   background: transparent;
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
 }
-.inputContainer:has(.input:focus) {
+
+.inputContainer:has(input:focus),
+.inputContainer:has(textarea:focus) {
   border-color: var(--primary);
+}
+.input:has(input:focus) span,
+.input:has(textarea:focus) span {
+  color: var(--primary);
 }
 .inputContainer:has(textarea) {
   height: 110px;
 }
 
-textarea.input {
+.input textarea {
   padding-top: 22px;
   resize: none;
 }
@@ -49,7 +59,7 @@ textarea.input {
   background-color: var(--shopping-list-disabled);
 }
 
-.label {
+.label span {
   color: var(--title-color);
   font-size: var(--s-font);
   font-weight: 500;
@@ -57,9 +67,6 @@ textarea.input {
   margin-bottom: 6px;
 }
 
-.focused {
-  color: var(--primary);
-}
 .categoryList {
   position: absolute;
   margin-top: 12px;
