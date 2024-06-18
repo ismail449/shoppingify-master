@@ -6,8 +6,8 @@
   --gray: #454545;
   --title-color: #34333a;
   --input-placeholder-color: #bdbdbd;
-  --category-list-border-color: #e0e0e0;
-  --category-item-hovered: #f2f2f2;
+  --list-border-color: #e0e0e0;
+  --item-hovered: #f2f2f2;
   --shopping-list-background: #fff0de;
   --add-item-background: #80485b;
   --shopping-list-disabled: #c1c1c4;
@@ -71,7 +71,7 @@ textarea::placeholder {
 }
 
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px var(--category-list-border-color);
+  box-shadow: inset 0 0 5px var(--list-border-color);
   border-radius: 10px;
 }
 
