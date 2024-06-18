@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import SideBar from "../side-bar";
-import Input from "@/components/input/input";
 import useUpdateSearchParams from "@/hooks/useUpdateSearchParams";
 import Button from "@/components/button/button";
 import { useShoppingListContext } from "@/context/shopping-list-context";
@@ -10,6 +9,7 @@ import ShoppingItemCountControl from "./shopping-item-count-control/shopping-ite
 import { ShoppingItem } from "@/context/shopping-list-context";
 import ShoppingListActions from "./shopping-list-actions/shopping-list-actions";
 import styles from "./shopping-list.module.css";
+import InputWithButton from "@/components/input-with-button/input-with-button";
 
 type ShoppingListGroupedByCategory = {
   [category: string]: { items: ShoppingItem[] };
@@ -117,13 +117,11 @@ const ShoppingList = () => {
             <ShoppingListActions shoppingListId="" />
           ) : (
             <div className={styles.inputContainer}>
-              <Input
+              <InputWithButton
                 placeholder="Enter a name"
                 disabled={!shoppingList.length}
-                buttonProps={{
-                  buttonText: "Save",
-                  buttonOnClick: handleUpdateShoppingListName,
-                }}
+                buttonText="Save"
+                onValueSubmit={handleUpdateShoppingListName}
               />
             </div>
           )}

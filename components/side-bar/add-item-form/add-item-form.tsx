@@ -7,6 +7,7 @@ import Link from "next/link";
 import { addItem, getUserCategories } from "@/server-actions/server-actions";
 import { useFormState } from "react-dom";
 import styles from "./add-item-form.module.css";
+import InputWithList from "@/components/input-with-list/input-with-list";
 
 const initialFormState = {
   message: "",
@@ -38,7 +39,7 @@ const AddItemForm = () => {
             <Input
               required
               placeholder="Enter a name"
-              labelProps={{ id: "item-name", label: "Name" }}
+              label="Name"
               name="name"
             />
           </div>
@@ -47,7 +48,7 @@ const AddItemForm = () => {
             <Input
               textarea
               placeholder="Enter a note"
-              labelProps={{ id: "item-description", label: "Note" }}
+              label="Note"
               name="note"
             />
           </div>
@@ -55,18 +56,18 @@ const AddItemForm = () => {
           <div className={styles.inputContainer}>
             <Input
               placeholder="Enter a url"
-              labelProps={{ id: "item-image-url", label: "Image" }}
+              label="Image"
               type="url"
               name="image"
             />
           </div>
 
           <div className={styles.inputContainer}>
-            <Input
+            <InputWithList
               required
               placeholder="Enter a category"
-              labelProps={{ id: "item-category", label: "Category" }}
-              categoryList={userCategories}
+              label="Category"
+              listItems={userCategories ?? [""]}
               name="category"
             />
           </div>
