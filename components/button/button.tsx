@@ -37,8 +37,8 @@ const Button: FC<ButtonProps> = ({
   return (
     <button
       className={`${styles.button} ${styles[buttonType]}`}
-      {...rest}
       disabled={status.pending}
+      {...rest}
       onClick={handleOnClick}
     >
       {children}{" "}
