@@ -1,0 +1,32 @@
+.inputWithList {
+  position: relative;
+}
+
+.listList {
+  position: absolute;
+  margin-top: 12px;
+  width: 100%;
+  max-height: 168px;
+  overflow-y: scroll;
+  background-color: var(--white);
+  box-shadow: var(--search-input-shadow);
+  border: 1px solid var(--list-border-color);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.listItem {
+  width: 90%;
+  height: 47px;
+  padding: 11px 23px;
+  margin: 5px 0;
+  border-radius: 12px;
+}
+
+.listItem:hover {
+  background-color: var(--item-hovered);
+}
