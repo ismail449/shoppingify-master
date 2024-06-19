@@ -18,7 +18,7 @@ type ShoppingListGroupedByCategory = {
 const ShoppingList = () => {
   const [isEdit, setIsEdit] = useState(false);
   const { updateSearchParams } = useUpdateSearchParams();
-  const { shoppingList, loading, shoppingListInfo, updateShoppingListName } =
+  const { shoppingList, loading, shoppingListInfo, updateShoppingListInfo } =
     useShoppingListContext();
   const shoppingListGroupedByCategory = shoppingList.reduce((acc, item) => {
     const category = item.categoryName;
@@ -28,7 +28,7 @@ const ShoppingList = () => {
   }, {} as ShoppingListGroupedByCategory);
 
   const handleUpdateShoppingListName = async (name: string) => {
-    await updateShoppingListName(name);
+    await updateShoppingListInfo({ name });
   };
 
   return (

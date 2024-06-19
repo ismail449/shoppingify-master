@@ -30,7 +30,7 @@ type ShoppingListType = {
   addItemToShoppingList: (itemName: string, categoryName?: string) => void;
   removeItemFromShoppingList: (itemName: string) => void;
   deleteItemFromShoppingList: (itemName: string) => void;
-  updateShoppingListName: (name: string) => void;
+  updateShoppingListInfo: (updates: Partial<ShoppingList>) => void;
   loading: boolean;
   shoppingListInfo: ShoppingList | null;
 };
@@ -40,7 +40,7 @@ const ShoppingListContext = createContext<ShoppingListType>({
   addItemToShoppingList: () => {},
   removeItemFromShoppingList: () => {},
   deleteItemFromShoppingList: () => {},
-  updateShoppingListName: () => {},
+  updateShoppingListInfo: () => {},
   loading: true,
   shoppingListInfo: null,
 });
@@ -74,11 +74,11 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
     fetchActiveShoppingList();
   }, []);
 
-  const updateShoppingListName = async (newName: string) => {
+  const updateShoppingListInfo = async (updates: Partial<ShoppingList>) => {
     if (!shoppingListInfo) return;
     const updatedShoppingListInfo = {
       ...shoppingListInfo,
-      name: newName,
+      ...updates,
     };
     const updatedList = await updateActiveShoppingList(updatedShoppingListInfo);
     if (updatedList) setShoppingListInfo(updatedList);
@@ -153,7 +153,7 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
         addItemToShoppingList,
         removeItemFromShoppingList,
         deleteItemFromShoppingList,
-        updateShoppingListName,
+        updateShoppingListInfo,
         loading,
         shoppingListInfo,
       }}
