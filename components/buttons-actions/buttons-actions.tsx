@@ -6,7 +6,7 @@ import { useFormState } from "react-dom";
 type Props = {
   children: ReactNode;
   handleFormSubmit: (previousState: any, formData: FormData) => Promise<any>;
-  initialFormState: { isError?: boolean };
+  initialFormState?: { isError?: boolean };
 };
 
 const ButtonsActions: FC<Props> = ({
