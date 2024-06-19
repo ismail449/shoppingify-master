@@ -41,7 +41,7 @@ const Button: FC<ButtonProps> = ({
       {...rest}
       onClick={handleOnClick}
     >
-      {children}{" "}
+      {children}
       {status.pending && isClicked ? (
         <div className={styles.spinnerContainer}>
           <Spinner />
