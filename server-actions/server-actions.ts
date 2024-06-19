@@ -227,10 +227,7 @@ export const updateActiveShoppingList = async (shoppingList: ShoppingList) => {
       where: {
         id: activeShoppingList?.id,
       },
-      data: {
-        name: shoppingList.name ?? activeShoppingList?.name,
-        listStatus: shoppingList.listStatus ?? shoppingList.listStatus,
-      },
+      data: shoppingList,
     });
     return updatedShoppingList;
   } catch (error) {
