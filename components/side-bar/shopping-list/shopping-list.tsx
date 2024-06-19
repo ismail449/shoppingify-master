@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import SideBar from "../side-bar";
 import useUpdateSearchParams from "@/hooks/useUpdateSearchParams";
@@ -26,6 +26,12 @@ const ShoppingList = () => {
     acc[category].items.push(item);
     return acc;
   }, {} as ShoppingListGroupedByCategory);
+
+  useEffect(() => {
+    if (shoppingListInfo?.listStatus !== "active") {
+      setIsEdit(false);
+    }
+  }, [shoppingListInfo?.listStatus]);
 
   const handleUpdateShoppingListName = async (name: string) => {
     await updateShoppingListInfo({ name });
@@ -114,7 +120,7 @@ const ShoppingList = () => {
 
         <div className={styles.inputBackground}>
           {isEdit ? (
-            <ShoppingListActions shoppingListId="" />
+            <ShoppingListActions />
           ) : (
             <div className={styles.inputContainer}>
               <InputWithButton

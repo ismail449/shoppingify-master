@@ -72,7 +72,7 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
     };
 
     fetchActiveShoppingList();
-  }, []);
+  }, [shoppingListInfo?.listStatus]);
 
   const updateShoppingListInfo = async (updates: Partial<ShoppingList>) => {
     if (!shoppingListInfo) return;
