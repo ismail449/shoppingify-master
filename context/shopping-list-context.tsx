@@ -72,9 +72,26 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
     };
 
     fetchActiveShoppingList();
+  }, []);
+
+  useEffect(() => {
+    if (shoppingListInfo?.listStatus !== "active") {
+      setShoppingList([]);
+      const fetchActiveShoppingListInfo = async () => {
+        const shoppingListInfo = await getActiveShoppingList();
+        if (!shoppingListInfo) {
+          setShoppingListInfo(null);
+          return;
+        }
+        setShoppingListInfo(shoppingListInfo);
+      };
+
+      fetchActiveShoppingListInfo();
+    }
   }, [shoppingListInfo?.listStatus]);
 
   const updateShoppingListInfo = async (updates: Partial<ShoppingList>) => {
+    console.log("updates", updates);
     if (!shoppingListInfo) return;
     const updatedShoppingListInfo = {
       ...shoppingListInfo,
