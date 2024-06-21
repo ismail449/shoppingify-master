@@ -2,28 +2,19 @@
 import React, { FC, useState } from "react";
 import Button from "@/components/button/button";
 import ButtonsActions from "@/components/buttons-actions/buttons-actions";
-import {} from "@/server-actions/server-actions";
-import { useRouter, usePathname } from "next/navigation";
 import CancelListModal from "@/components/cancel-list-modal/cancel-list-modal";
+import { useShoppingListContext } from "@/context/shopping-list-context";
 
-type Props = {
-  shoppingListId: string;
-};
-
-const initialFormState = {
-  isError: false,
-  message: "",
-};
-
-const ShoppingListActions: FC<Props> = ({ shoppingListId }) => {
+const ShoppingListActions = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const router = useRouter();
-  const pathname = usePathname();
+  const { updateShoppingListInfo } = useShoppingListContext();
   const handleFormSubmit = async (previousState: any, formData: FormData) => {
-    const shoppingListId = formData.get("complete") as string;
-    if (!shoppingListId) {
+    const action = formData.get("complete") as string;
+    if (!action) {
       setIsModalOpen(true);
+      return;
     }
+    updateShoppingListInfo({ listStatus: "completed" });
   };
 
   const handleOnModalClose = () => {
@@ -32,19 +23,11 @@ const ShoppingListActions: FC<Props> = ({ shoppingListId }) => {
 
   return (
     <>
-      <ButtonsActions
-        handleFormSubmit={handleFormSubmit}
-        initialFormState={initialFormState}
-      >
-        <Button name="cancel" buttonType="transparent">
+      <ButtonsActions handleFormSubmit={handleFormSubmit}>
+        <Button value="cancel" name="cancel" buttonType="transparent">
           cancel
         </Button>
-        <Button
-          type="submit"
-          value={shoppingListId}
-          name="complete"
-          buttonType="complete"
-        >
+        <Button value="complete" name="complete" buttonType="complete">
           Complete
         </Button>
       </ButtonsActions>
