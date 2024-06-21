@@ -16,7 +16,7 @@ import {
   updateShoppingItemCount,
   updateActiveShoppingList,
 } from "@/server-actions/server-actions";
-import { ShoppingList } from "@prisma/client";
+import { ShoppingList } from "@prisma/client/wasm";
 
 export type ShoppingItem = {
   itemName: string;

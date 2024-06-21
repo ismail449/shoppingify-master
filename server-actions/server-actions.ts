@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "@/lib/getServerSession";
 import { revalidatePath } from "next/cache";
 import { signOut } from "next-auth/react";
-import { ShoppingList } from "@prisma/client";
+import { ShoppingList } from "@prisma/client/wasm";
 
 const getUser = async () => {
   const session = await getServerSession();
