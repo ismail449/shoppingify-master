@@ -1,4 +1,5 @@
 .shoppingCartContiner {
+  position: relative;
   width: 42px;
   height: 42px;
   border-radius: 100%;
@@ -8,4 +9,20 @@
   justify-content: center;
   margin-bottom: 35px;
   cursor: pointer;
+}
+
+.shoppingCartCount {
+  position: absolute;
+  bottom: 27px;
+  left: 27px;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  background-color: var(--danger);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--xs-font);
+  font-weight: 500;
+  color: var(--white);
 }
