@@ -13,17 +13,10 @@ import {
   deleteShoppingListItem,
   getActiveShoppingList,
   getActiveShoppingListItems,
-  updateShoppingItemCount,
+  updateShoppingItem,
   updateActiveShoppingList,
 } from "@/server-actions/server-actions";
-import { ShoppingList } from "@prisma/client/wasm";
-
-export type ShoppingItem = {
-  itemName: string;
-  categoryName: string;
-  itemCount: number;
-  id: string;
-};
+import { ShoppingList, ShoppingItem } from "@prisma/client/wasm";
 
 type ShoppingListType = {
   shoppingList: ShoppingItem[];
@@ -90,8 +83,27 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
     }
   }, [shoppingListInfo?.listStatus]);
 
+  const updateShoppingListItem = async (
+    updates: Partial<ShoppingList>,
+    itemIndex: number
+  ) => {
+    const updatedShoppingItem = {
+      ...shoppingList[itemIndex],
+      ...updates,
+    };
+    const newShoppingItem = await updateShoppingItem(updatedShoppingItem);
+    if (!newShoppingItem) return;
+    setShoppingList((shoppingList) => {
+      const updatedShoppingItemIndex = findItemIndex(
+        newShoppingItem.itemName,
+        shoppingList
+      );
+      shoppingList[updatedShoppingItemIndex] = newShoppingItem;
+      return [...shoppingList];
+    });
+  };
+
   const updateShoppingListInfo = async (updates: Partial<ShoppingList>) => {
-    console.log("updates", updates);
     if (!shoppingListInfo) return;
     const updatedShoppingListInfo = {
       ...shoppingListInfo,
@@ -119,16 +131,8 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
     }
     const shoppingItem = shoppingList[shoppingItemIndex];
     const itemCount = shoppingItem.itemCount + 1;
-    const updatedShoppingItem = await updateShoppingItemCount(
-      itemCount,
-      shoppingItem.id
-    );
-    if (!updatedShoppingItem) return;
-    setShoppingList((shoppingList) => {
-      const updatedShoppingItemIndex = findItemIndex(itemName, shoppingList);
-      shoppingList[updatedShoppingItemIndex] = updatedShoppingItem;
-      return [...shoppingList];
-    });
+    const newShoppingItem = { ...shoppingItem, itemCount };
+    await updateShoppingListItem(newShoppingItem, shoppingItemIndex);
   };
 
   const removeItemFromShoppingList = async (itemName: string) => {
@@ -136,19 +140,11 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
     const shoppingItem = shoppingList[shoppingItemIndex];
     const itemCount = shoppingItem.itemCount - 1;
     if (itemCount === 0) {
-      deleteItemFromShoppingList(itemName);
+      await deleteItemFromShoppingList(itemName);
       return;
     }
-    const updatedShoppingItem = await updateShoppingItemCount(
-      itemCount,
-      shoppingItem.id
-    );
-    if (!updatedShoppingItem) return;
-    setShoppingList((shoppingList) => {
-      const updatedShoppingItemIndex = findItemIndex(itemName, shoppingList);
-      shoppingList[updatedShoppingItemIndex] = updatedShoppingItem;
-      return [...shoppingList];
-    });
+    const newShoppingItem = { ...shoppingItem, itemCount };
+    await updateShoppingListItem(newShoppingItem, shoppingItemIndex);
   };
 
   const deleteItemFromShoppingList = async (itemName: string) => {

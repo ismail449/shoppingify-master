@@ -6,10 +6,10 @@ import useUpdateSearchParams from "@/hooks/useUpdateSearchParams";
 import Button from "@/components/button/button";
 import { useShoppingListContext } from "@/context/shopping-list-context";
 import ShoppingItemCountControl from "./shopping-item-count-control/shopping-item-count-control";
-import { ShoppingItem } from "@/context/shopping-list-context";
 import ShoppingListActions from "./shopping-list-actions/shopping-list-actions";
-import styles from "./shopping-list.module.css";
 import InputWithButton from "@/components/input-with-button/input-with-button";
+import { ShoppingItem } from "@prisma/client/wasm";
+import styles from "./shopping-list.module.css";
 
 type ShoppingListGroupedByCategory = {
   [category: string]: { items: ShoppingItem[] };
