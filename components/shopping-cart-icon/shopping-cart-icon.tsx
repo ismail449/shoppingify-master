@@ -12,7 +12,6 @@ const ShoppingCartIcon = () => {
   const shoppingListItemsCount = shoppingList
     .map((item) => item.itemCount)
     .reduce((prev, curr) => prev + curr, 0);
-  console.log(shoppingListItemsCount);
   return (
     <div onClick={toggleSidebar} className={styles.shoppingCartContiner}>
       {shoppingListItemsCount > 0 ? (
