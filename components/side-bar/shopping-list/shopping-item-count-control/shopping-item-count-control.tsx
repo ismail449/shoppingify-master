@@ -6,16 +6,15 @@ import Checkbox from "@/components/checkbox/checkbox";
 import { useShoppingListContext } from "@/context/shopping-list-context";
 import Spinner from "@/components/spinner/spinner";
 import styles from "./shopping-item-count-control.module.css";
+import { ShoppingItem } from "@prisma/client";
 
 type Props = {
-  itemName: string;
-  itemCount: number;
+  item: ShoppingItem;
   showCheckbox?: boolean;
 };
 
 const ShoppingItemCountControl: FC<Props> = ({
-  itemName,
-  itemCount,
+  item,
   showCheckbox = false,
 }) => {
   const {
@@ -27,7 +26,7 @@ const ShoppingItemCountControl: FC<Props> = ({
 
   const handleOnItemAction = async (itemAction: (itemName: string) => void) => {
     setLoading(true);
-    await itemAction(itemName);
+    await itemAction(item.itemName);
     setLoading(false);
   };
   return (
@@ -35,7 +34,8 @@ const ShoppingItemCountControl: FC<Props> = ({
       <Checkbox
         onChange={() => console.log("test")}
         showCheckbox={showCheckbox}
-        label={itemName}
+        label={item.itemName}
+        checked={item.checked}
       />
       <div className={styles.itemCountControls}>
         <div className={styles.deleteIconBackground}>
@@ -68,7 +68,7 @@ const ShoppingItemCountControl: FC<Props> = ({
               color="var(--input-placeholder-color)"
             />
           ) : (
-            `${itemCount} pcs`
+            `${item.itemCount} pcs`
           )}
         </span>
         <Image
