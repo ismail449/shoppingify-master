@@ -95,6 +95,7 @@ model ShoppingItem {
   shoppingList   ShoppingList @relation(fields: [shoppingListId], references: [id])
   shoppingListId String
   itemCount      Int
+  checked        Boolean      @default(false)
 }
 
 enum ListStatus {
