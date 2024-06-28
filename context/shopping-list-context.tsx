@@ -23,6 +23,7 @@ type ShoppingListType = {
   addItemToShoppingList: (itemName: string, categoryName?: string) => void;
   removeItemFromShoppingList: (itemName: string) => void;
   deleteItemFromShoppingList: (itemName: string) => void;
+  updateItemCheckedProperty: (itemName: string, checked: boolean) => void;
   updateShoppingListInfo: (updates: Partial<ShoppingList>) => void;
   loading: boolean;
   shoppingListInfo: ShoppingList | null;
@@ -33,6 +34,7 @@ const ShoppingListContext = createContext<ShoppingListType>({
   addItemToShoppingList: () => {},
   removeItemFromShoppingList: () => {},
   deleteItemFromShoppingList: () => {},
+  updateItemCheckedProperty: () => {},
   updateShoppingListInfo: () => {},
   loading: true,
   shoppingListInfo: null,
@@ -159,6 +161,15 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
       return [...newShoppingList];
     });
   };
+  const updateItemCheckedProperty = async (
+    itemName: string,
+    checked: boolean
+  ) => {
+    const shoppingItemIndex = findItemIndex(itemName, shoppingList);
+    const shoppingItem = shoppingList[shoppingItemIndex];
+    const newShoppingItem = { ...shoppingItem, checked };
+    await updateShoppingListItem(newShoppingItem, shoppingItemIndex);
+  };
   return (
     <ShoppingListContext.Provider
       value={{
@@ -167,8 +178,9 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
         removeItemFromShoppingList,
         deleteItemFromShoppingList,
         updateShoppingListInfo,
-        loading,
         shoppingListInfo,
+        updateItemCheckedProperty,
+        loading,
       }}
     >
       {children}
