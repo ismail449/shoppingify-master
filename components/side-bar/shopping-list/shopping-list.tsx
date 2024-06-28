@@ -90,8 +90,7 @@ const ShoppingList = () => {
                     return (
                       <div key={item.itemName}>
                         <ShoppingItemCountControl
-                          itemCount={item.itemCount}
-                          itemName={item.itemName}
+                          item={item}
                           showCheckbox={isEdit}
                         />
                       </div>
