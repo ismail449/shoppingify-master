@@ -28,6 +28,10 @@
   display: block;
 }
 
+.checkbox:has(input:disabled) {
+  cursor: not-allowed;
+}
+
 .checkbox .checkmark:after {
   width: 6px;
   height: 14px;

@@ -1,23 +1,20 @@
-import React, { FC } from "react";
+import React, { ComponentProps, FC } from "react";
 import styles from "./checkbox.module.css";
 
 type Props = {
   label: string;
   showCheckbox: boolean;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  checked?: boolean;
-};
+} & ComponentProps<"input">;
 
-const Checkbox: FC<Props> = ({ label, showCheckbox, onChange, checked }) => {
+const Checkbox: FC<Props> = ({ label, showCheckbox, ...otherProps }) => {
   return (
     <label className={styles.checkbox}>
       {showCheckbox ? (
         <>
           <input
-            onChange={onChange}
             type="checkbox"
             className={styles.checkboxInput}
-            checked={checked}
+            {...otherProps}
           />
           <span className={styles.checkmark}></span>
         </>
