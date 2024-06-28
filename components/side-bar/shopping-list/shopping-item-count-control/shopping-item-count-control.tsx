@@ -21,6 +21,7 @@ const ShoppingItemCountControl: FC<Props> = ({
     addItemToShoppingList,
     removeItemFromShoppingList,
     deleteItemFromShoppingList,
+    updateItemCheckedProperty,
   } = useShoppingListContext();
   const [loading, setLoading] = useState(false);
 
@@ -29,10 +30,20 @@ const ShoppingItemCountControl: FC<Props> = ({
     await itemAction(item.itemName);
     setLoading(false);
   };
+
+  const handleChackboxChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const checked = e.target.checked;
+    setLoading(true);
+    await updateItemCheckedProperty(item.itemName, checked);
+    setLoading(false);
+  };
   return (
     <div className={styles.shoppingItemCountControl}>
       <Checkbox
-        onChange={() => console.log("test")}
+        onChange={handleChackboxChange}
+        disabled={loading}
         showCheckbox={showCheckbox}
         label={item.itemName}
         checked={item.checked}
