@@ -35,7 +35,7 @@ const ShoppingItemsActions: FC<ShoppingItemsProps> = ({
     deleteItemFromShoppingList(itemName);
     const actionResponse = await deleteShoppingItem(previousState, formData);
     if (!actionResponse?.isError) {
-      router.push(pathname);
+      router.push(pathname ?? "/");
     }
     return actionResponse;
   };
