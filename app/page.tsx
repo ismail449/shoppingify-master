@@ -2,12 +2,11 @@ import SearchInput from "@/components/search-input/search-input";
 import ShoppingItem from "@/components/shopping-item/shopping-item";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { authOptions } from "../pages/api/auth/[...nextauth]";
 import ShoppingList from "@/components/side-bar/shopping-list/shopping-list";
 import AddItemForm from "@/components/side-bar/add-item-form/add-item-form";
 import ShoppingItemDetails from "@/components/side-bar/shopping-item-details/shopping-item-details";
 import { prisma } from "@/lib/prisma";
-import Link from "next/link";
 import styles from "./page.module.css";
 
 export default async function Home({
@@ -16,7 +15,7 @@ export default async function Home({
   searchParams: { [key: string]: string };
 }) {
   const session = await getServerSession(authOptions);
-
+  console.log(session);
   if (!session || !session.user?.email) {
     redirect("/api/auth/signin");
   }
