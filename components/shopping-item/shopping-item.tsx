@@ -9,7 +9,7 @@ type Props = {
   categoryId: string;
 };
 
-const ShoppingItem: FC<Props> = async ({ itemName, itemId, categoryId }) => {
+const ShoppingItem: FC<Props> = ({ itemName, itemId, categoryId }) => {
   return (
     <div className={styles.shoppingItem}>
       <Link
