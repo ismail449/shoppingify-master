@@ -1,4 +1,3 @@
-import SearchInput from "@/components/search-input/search-input";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../pages/api/auth/[...nextauth]";
@@ -32,16 +31,6 @@ export default async function Home({
   });
   return (
     <main className={styles.home}>
-      <div className={styles.topSectionContiner}>
-        <h1 className={styles.homeTitle}>
-          <span>Shoppingify</span> allows you take your shopping list wherever
-          you go
-        </h1>
-        <div className={styles.searchInputContiner}>
-          <SearchInput placeholder="search item" />
-        </div>
-      </div>
-
       <ShoppingItemsList shoppingItems={items} />
 
       {!searchParams.shoppingSidebar ? <ShoppingList /> : null}

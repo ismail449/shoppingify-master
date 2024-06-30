@@ -3,57 +3,8 @@
   margin-right: 89px;
 }
 
-.homeTitle {
-  font-size: var(--xxxl-font);
-  color: var(--title-color);
-  font-weight: 500;
-  line-height: 32.5px;
-  display: inline-block;
-  width: 450px;
-  align-self: flex-end;
-}
-
-.homeTitle span {
-  color: var(--primary);
-  font-weight: 700;
-}
-
-.topSectionContiner {
-  display: flex;
-  justify-content: space-between;
-  height: 76px;
-  margin-top: 27px;
-  margin-bottom: 57px;
-}
-
-.searchInputContiner {
-  align-self: flex-start;
-  width: 275.61px;
-  height: 51px;
-}
-
 @media only screen and (max-width: 992px) {
   .home {
-    margin-left: 12px;
-    margin-right: 12px;
-  }
-  .topSectionContiner {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    height: auto;
-    gap: 10px;
-  }
-  .homeTitle {
-    align-self: unset;
-    font-size: var(--m-font);
-    line-height: unset;
-    width: auto;
-  }
-  .searchInputContiner {
-    align-self: unset;
-    width: 90%;
-    height: 51px;
+    margin-inline: 12px;
   }
 }
