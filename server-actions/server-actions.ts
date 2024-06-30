@@ -166,17 +166,22 @@ export const getActiveShoppingListItems = async () => {
 };
 
 export const addItemToActiveShoppingList = async (item: {
-  categoryName: string;
+  categoryId: string;
   itemCount: number;
   itemName: string;
 }) => {
   try {
-    const { categoryName, itemCount, itemName } = item;
+    const { categoryId, itemCount, itemName } = item;
+    const category = await prisma.category.findUnique({
+      where: {
+        id: categoryId,
+      },
+    });
     const activeShoppingList = await getActiveShoppingList();
-    if (!activeShoppingList) return;
+    if (!activeShoppingList || !category?.name) return;
     const shoppingItem = prisma.shoppingItem.create({
       data: {
-        categoryName,
+        categoryName: category.name,
         itemCount,
         itemName,
         shoppingListId: activeShoppingList.id,

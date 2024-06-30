@@ -6,19 +6,19 @@ import { useShoppingListContext } from "@/context/shopping-list-context";
 import styles from "./shopping-item-action.module.css";
 
 type ShoppingItemActionProps = {
-  categoryName: string;
+  categoryId: string;
   itemName: string;
 };
 
 const ShoppingItemAction: FC<ShoppingItemActionProps> = ({
-  categoryName,
+  categoryId,
   itemName,
 }) => {
   const { addItemToShoppingList } = useShoppingListContext();
   const [loading, setLoading] = useState(false);
   const handleOnAddClick = async () => {
     setLoading(true);
-    await addItemToShoppingList(itemName, categoryName);
+    await addItemToShoppingList(itemName, categoryId);
     setLoading(false);
   };
   return (

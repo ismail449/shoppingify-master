@@ -117,13 +117,13 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
 
   const addItemToShoppingList = async (
     itemName: string,
-    categoryName?: string
+    categoryId?: string
   ) => {
     const shoppingItemIndex = findItemIndex(itemName, shoppingList);
     if (shoppingItemIndex === -1) {
-      if (!categoryName) return;
+      if (!categoryId) return;
       const newItem = await addItemToActiveShoppingList({
-        categoryName,
+        categoryId,
         itemCount: 1,
         itemName,
       });
