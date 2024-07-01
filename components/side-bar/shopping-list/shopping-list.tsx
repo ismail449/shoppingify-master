@@ -8,24 +8,15 @@ import { useShoppingListContext } from "@/context/shopping-list-context";
 import ShoppingItemCountControl from "./shopping-item-count-control/shopping-item-count-control";
 import ShoppingListActions from "./shopping-list-actions/shopping-list-actions";
 import InputWithButton from "@/components/input-with-button/input-with-button";
-import { ShoppingItem } from "@prisma/client/wasm";
+import { groupArrayByCatigory } from "@/utils";
 import styles from "./shopping-list.module.css";
-
-type ShoppingListGroupedByCategory = {
-  [category: string]: { items: ShoppingItem[] };
-};
 
 const ShoppingList = () => {
   const [isEdit, setIsEdit] = useState(false);
   const { updateSearchParams } = useUpdateSearchParams();
   const { shoppingList, loading, shoppingListInfo, updateShoppingListInfo } =
     useShoppingListContext();
-  const shoppingListGroupedByCategory = shoppingList.reduce((acc, item) => {
-    const category = item.categoryName;
-    acc[category] = acc[category] ?? { items: [] };
-    acc[category].items.push(item);
-    return acc;
-  }, {} as ShoppingListGroupedByCategory);
+  const shoppingListGroupedByCategory = groupArrayByCatigory(shoppingList);
 
   useEffect(() => {
     if (shoppingListInfo?.listStatus !== "active") {
