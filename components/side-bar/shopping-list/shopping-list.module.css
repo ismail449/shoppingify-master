@@ -65,6 +65,7 @@
   font-weight: 700;
   color: var(--white);
   font-size: var(--m-font);
+  text-wrap: balance;
 }
 
 .addItemButton {
