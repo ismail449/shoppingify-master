@@ -3,6 +3,7 @@ import React, { FC, useState } from "react";
 import { Item } from "@prisma/client/wasm";
 import ShoppingItem from "../shopping-item/shopping-item";
 import SearchInput from "../search-input/search-input";
+import { groupArrayByCatigory } from "@/utils";
 import styles from "./shopping-items-list.module.css";
 
 type Props = {
@@ -13,6 +14,9 @@ const ShoppingItemsList: FC<Props> = ({ shoppingItems }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const filteredShoppingItems = shoppingItems.filter(({ name }) =>
     name.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase())
+  );
+  const shoppingListGroupedByCategory = groupArrayByCatigory(
+    filteredShoppingItems
   );
   const handleShoppingItemsSearch = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -33,17 +37,34 @@ const ShoppingItemsList: FC<Props> = ({ shoppingItems }) => {
           />
         </div>
       </div>
-      <div className={styles.shppingItemsContainer}>
-        {filteredShoppingItems.length
-          ? filteredShoppingItems.map((item) => (
-              <ShoppingItem
-                key={item.id}
-                itemId={item.id}
-                itemName={item.name}
-                categoryId={item.categoryId}
-              />
-            ))
-          : null}
+      <div>
+        {Object.keys(shoppingListGroupedByCategory).length ? (
+          <>
+            {Object.keys(shoppingListGroupedByCategory).map((category) => {
+              const categoryShoppingItems =
+                shoppingListGroupedByCategory[category].items;
+              return (
+                <div key={category}>
+                  <span className={styles.itemCategory}>{category}</span>
+                  <div className={styles.shppingItemsContainer}>
+                    {categoryShoppingItems.map((item) => {
+                      return (
+                        <ShoppingItem
+                          key={item.id}
+                          itemId={item.id}
+                          itemName={item.name}
+                          categoryId={item.categoryId}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </>
+        ) : (
+          <span>No items</span>
+        )}
       </div>
     </div>
   );

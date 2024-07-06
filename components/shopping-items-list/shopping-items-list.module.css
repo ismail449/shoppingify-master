@@ -2,6 +2,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, 202px);
   row-gap: 27px;
+  column-gap: 46px;
+  margin-bottom: 46px;
 }
 
 .homeTitle {
@@ -33,6 +35,14 @@
   height: 51px;
 }
 
+.itemCategory {
+  font-size: var(--l-font);
+  font-weight: 500;
+  line-height: 22.5px;
+  margin-bottom: 18px;
+  display: block;
+}
+
 @media only screen and (max-width: 992px) {
   .home {
     margin-left: 12px;
@@ -56,5 +66,12 @@
     align-self: unset;
     width: 90%;
     height: 51px;
+  }
+  .shppingItemsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 140px);
+    row-gap: 8px;
+    column-gap: 27px;
+    margin-bottom: 27px;
   }
 }
