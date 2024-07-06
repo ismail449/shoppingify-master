@@ -32,10 +32,12 @@
 
 .itemCountControls:hover .deleteIconBackground {
   opacity: 1;
+  visibility: visible;
 }
 
 .itemCountControls:hover img {
   opacity: 1;
+  visibility: visible;
 }
 .deleteIconBackground {
   background-color: var(--primary);
@@ -43,12 +45,14 @@
   border-radius: 12px;
   opacity: 0;
   transition: 0.3s;
+  visibility: hidden;
 }
 
 .itemCountControls img {
   opacity: 0;
   cursor: pointer;
   transition: 0.3s;
+  visibility: hidden;
 }
 
 .disabledImage {
