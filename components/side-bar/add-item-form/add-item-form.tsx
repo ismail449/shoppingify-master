@@ -72,7 +72,7 @@ const AddItemForm = () => {
             />
           </div>
           <div className={styles.buttonsContainer}>
-            <Link href="/">
+            <Link href={{ search: "isSidebarOpen=true" }}>
               <Button buttonType="transparent">Cancel</Button>
             </Link>
             <Button type="submit" buttonType="primary">

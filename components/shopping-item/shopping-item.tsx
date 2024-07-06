@@ -14,7 +14,7 @@ const ShoppingItem: FC<Props> = ({ itemName, itemId, categoryId }) => {
     <div className={styles.shoppingItem}>
       <Link
         href={{
-          search: `shoppingSidebar=item-details&id=${itemId}`,
+          search: `isSidebarOpen=true&shoppingSidebar=item-details&id=${itemId}`,
         }}
       >
         <span className={styles.shoppingItemText}>{itemName}</span>

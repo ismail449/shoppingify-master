@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Tooltip from "../tooltip/tooltip";
@@ -47,7 +47,9 @@ const NavBar = () => {
           </Tooltip>
         </li>
       </ul>
-      <ShoppingCartIcon />
+      <Suspense>
+        <ShoppingCartIcon />
+      </Suspense>
     </nav>
   );
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { FC, ReactNode } from "react";
-import { useOpenSidebarContext } from "@/context/open-sidebar-context";
+import { useSearchParams } from "next/navigation";
 import styles from "./side-bar.module.css";
 
 type Props = {
@@ -9,10 +9,10 @@ type Props = {
 };
 
 const SideBar: FC<Props> = ({ children }) => {
-  const { isSidebarOpen } = useOpenSidebarContext();
-
+  const searchParams = useSearchParams();
+  const search = searchParams?.get("isSidebarOpen");
   return (
-    <div className={`${styles.sideBar}  ${isSidebarOpen ? styles.open : null}`}>
+    <div className={`${styles.sideBar}  ${search ? styles.open : null}`}>
       {children}
     </div>
   );

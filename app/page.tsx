@@ -7,6 +7,7 @@ import ShoppingItemDetails from "@/components/side-bar/shopping-item-details/sho
 import ShoppingItemsList from "@/components/shopping-items-list/shopping-items-list";
 import { prisma } from "@/lib/prisma";
 import styles from "./page.module.css";
+import { Suspense } from "react";
 
 export default async function Home({
   searchParams,
@@ -33,10 +34,20 @@ export default async function Home({
     <main className={styles.home}>
       <ShoppingItemsList shoppingItems={items} />
 
-      {!searchParams.shoppingSidebar ? <ShoppingList /> : null}
-      {searchParams.shoppingSidebar === "add-item" ? <AddItemForm /> : null}
+      {!searchParams.shoppingSidebar ? (
+        <Suspense>
+          <ShoppingList />
+        </Suspense>
+      ) : null}
+      {searchParams.shoppingSidebar === "add-item" ? (
+        <Suspense>
+          <AddItemForm />
+        </Suspense>
+      ) : null}
       {searchParams.shoppingSidebar === "item-details" ? (
-        <ShoppingItemDetails id={searchParams.id} />
+        <Suspense>
+          <ShoppingItemDetails id={searchParams.id} />
+        </Suspense>
       ) : null}
     </main>
   );
