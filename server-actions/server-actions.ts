@@ -68,7 +68,13 @@ export const addItem = async (previousState: any, formData: FormData) => {
 
   if (!dbItem) {
     dbItem = await prisma.item.create({
-      data: { name: item, categoryId: dbCategory?.id, imageUrl, note },
+      data: {
+        name: item,
+        categoryId: dbCategory?.id,
+        imageUrl,
+        note,
+        categoryName: dbCategory?.name,
+      },
     });
     revalidatePath("/");
     return { message: "Item added successfully", isError: false };

@@ -64,12 +64,13 @@ model VerificationToken {
 }
 
 model Item {
-  id         String   @id @default(cuid())
-  name       String   @unique
-  note       String?
-  imageUrl   String?
-  category   Category @relation(fields: [categoryId], references: [id])
-  categoryId String
+  id           String   @id @default(cuid())
+  name         String   @unique
+  note         String?
+  imageUrl     String?
+  category     Category @relation(fields: [categoryId, categoryName], references: [id, name])
+  categoryId   String
+  categoryName String
 }
 
 model Category {
@@ -77,6 +78,8 @@ model Category {
   name  String              @unique
   item  Item[]
   users CategoriesOnUsers[]
+
+  @@unique([id, name])
 }
 
 model CategoriesOnUsers {
