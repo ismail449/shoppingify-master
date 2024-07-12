@@ -32,8 +32,10 @@ export const addItem = async (previousState: any, formData: FormData) => {
   const note = (formData.get("note") as string).toLocaleLowerCase();
   const imageUrl = (formData.get("image") as string).toLocaleLowerCase();
 
-  let dbItem = await prisma.item.findUnique({ where: { name: item } });
-  let dbCategory = await prisma.category.findUnique({
+  let dbItem = await prisma.item.findFirst({
+    where: { AND: [{ name: item }, { userId: user.id }] },
+  });
+  let dbCategory = await prisma.category.findFirst({
     where: { name: category },
   });
 
@@ -47,7 +49,7 @@ export const addItem = async (previousState: any, formData: FormData) => {
         userId: user.id,
       },
     });
-    dbCategory = await prisma.category.findUnique({
+    dbCategory = await prisma.category.findFirst({
       where: { name: category },
     });
   }
@@ -70,10 +72,11 @@ export const addItem = async (previousState: any, formData: FormData) => {
     dbItem = await prisma.item.create({
       data: {
         name: item,
-        categoryId: dbCategory?.id,
+        categoryId: dbCategory.id,
         imageUrl,
         note,
-        categoryName: dbCategory?.name,
+        categoryName: dbCategory.name,
+        userId: user.id,
       },
     });
     revalidatePath("/");
@@ -81,7 +84,12 @@ export const addItem = async (previousState: any, formData: FormData) => {
   }
   await prisma.item.update({
     where: { id: dbItem.id },
-    data: { categoryId: dbCategory?.id, imageUrl, note },
+    data: {
+      categoryId: dbCategory?.id,
+      imageUrl,
+      note,
+      categoryName: dbCategory?.name,
+    },
   });
   revalidatePath("/");
   return { message: "Item updated successfully", isError: false };
