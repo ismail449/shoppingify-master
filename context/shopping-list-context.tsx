@@ -151,6 +151,7 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
 
   const deleteItemFromShoppingList = async (itemName: string) => {
     const shoppingItemIndex = findItemIndex(itemName, shoppingList);
+    if (shoppingItemIndex === -1) return;
     const shoppingItem = shoppingList[shoppingItemIndex];
     const deletedShoppingItem = await deleteShoppingListItem(shoppingItem.id);
     if (!deletedShoppingItem) return;
