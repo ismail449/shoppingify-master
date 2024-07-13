@@ -3,6 +3,10 @@ import { Quicksand } from "next/font/google";
 import NavBar from "@/components/nav-bar/nav-bar";
 import AuthProvider from "./auth-provider";
 import { ShoppingListProvider } from "@/context/shopping-list-context";
+import {
+  getActiveShoppingList,
+  getActiveShoppingListItems,
+} from "@/server-actions/server-actions";
 import "./globals.css";
 
 const quicksand = Quicksand({ weight: "variable", subsets: ["latin"] });
@@ -12,14 +16,19 @@ export const metadata: Metadata = {
   description: "Your online shopping list",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const activeShoppingList = await getActiveShoppingListItems();
+  const shoppingListInfo = await getActiveShoppingList();
   return (
     <AuthProvider>
-      <ShoppingListProvider>
+      <ShoppingListProvider
+        shoppingInfo={shoppingListInfo ?? null}
+        shoppingItems={activeShoppingList ?? []}
+      >
         <html lang="en" className={quicksand.className}>
           <body>
             <NavBar />

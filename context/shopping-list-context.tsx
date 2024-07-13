@@ -12,7 +12,6 @@ import {
   addItemToActiveShoppingList,
   deleteShoppingListItem,
   getActiveShoppingList,
-  getActiveShoppingListItems,
   updateShoppingItem,
   updateActiveShoppingList,
 } from "@/server-actions/server-actions";
@@ -25,7 +24,6 @@ type ShoppingListType = {
   deleteItemFromShoppingList: (itemName: string) => void;
   updateItemCheckedProperty: (itemName: string, checked: boolean) => void;
   updateShoppingListInfo: (updates: Partial<ShoppingList>) => void;
-  loading: boolean;
   shoppingListInfo: ShoppingList | null;
 };
 
@@ -36,7 +34,6 @@ const ShoppingListContext = createContext<ShoppingListType>({
   deleteItemFromShoppingList: () => {},
   updateItemCheckedProperty: () => {},
   updateShoppingListInfo: () => {},
-  loading: true,
   shoppingListInfo: null,
 });
 
@@ -47,27 +44,22 @@ const findItemIndex = (itemName: string, shoppingList: ShoppingItem[]) => {
   return shoppingItemIndex;
 };
 
-export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
+type ShoppingListProviderProps = {
+  shoppingItems: ShoppingItem[];
+  shoppingInfo: ShoppingList | null;
+  children: ReactNode;
+};
+
+export const ShoppingListProvider: FC<ShoppingListProviderProps> = ({
   children,
+  shoppingItems,
+  shoppingInfo,
 }) => {
-  const [shoppingList, setShoppingList] = useState<ShoppingItem[]>([]);
+  const [shoppingList, setShoppingList] =
+    useState<ShoppingItem[]>(shoppingItems);
   const [shoppingListInfo, setShoppingListInfo] = useState<ShoppingList | null>(
-    null
+    shoppingInfo
   );
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchActiveShoppingList = async () => {
-      const activeShoppingList = await getActiveShoppingListItems();
-      const shoppingListInfo = await getActiveShoppingList();
-      if (!activeShoppingList || !shoppingListInfo) return;
-      setShoppingList(activeShoppingList);
-      setShoppingListInfo(shoppingListInfo);
-      setLoading(false);
-    };
-
-    fetchActiveShoppingList();
-  }, []);
 
   useEffect(() => {
     if (shoppingListInfo?.listStatus !== "active") {
@@ -181,7 +173,6 @@ export const ShoppingListProvider: FC<{ children: ReactNode }> = ({
         updateShoppingListInfo,
         shoppingListInfo,
         updateItemCheckedProperty,
-        loading,
       }}
     >
       {children}

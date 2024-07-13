@@ -14,7 +14,7 @@ import styles from "./shopping-list.module.css";
 const ShoppingList = () => {
   const [isEdit, setIsEdit] = useState(false);
   const { updateSearchParams } = useUpdateSearchParams();
-  const { shoppingList, loading, shoppingListInfo, updateShoppingListInfo } =
+  const { shoppingList, shoppingListInfo, updateShoppingListInfo } =
     useShoppingListContext();
   const shoppingListGroupedByCategory = groupArrayByCatigory(shoppingList);
 
@@ -94,9 +94,7 @@ const ShoppingList = () => {
         ) : (
           <>
             <div className={styles.shoppingListBody}>
-              <p className={styles.emptyListText}>
-                {loading ? "Loading..." : "No items"}
-              </p>
+              <p className={styles.emptyListText}>No items</p>
             </div>
             <div className={styles.emptyShoppingListImage}>
               <Image
