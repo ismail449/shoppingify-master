@@ -7,6 +7,7 @@ import {
   ReactNode,
   useState,
   useEffect,
+  useReducer,
 } from "react";
 import {
   addItemToActiveShoppingList,
@@ -49,21 +50,58 @@ type ShoppingListProviderProps = {
   shoppingInfo: ShoppingList | null;
   children: ReactNode;
 };
+enum ShoppingListActions {
+  ADD = "ADD",
+  RESET = "RESET",
+  UPDATE = "UPDATE",
+  DELETE = "DELETE",
+}
+
+type ShoppingListAction =
+  | { type: ShoppingListActions.RESET }
+  | { type: ShoppingListActions; payload: ShoppingItem };
+
+const shoppingListReducer = (
+  shoppingList: ShoppingItem[],
+  action: ShoppingListAction
+): ShoppingItem[] => {
+  switch (action.type) {
+    case ShoppingListActions.RESET:
+      return [];
+    case ShoppingListActions.UPDATE:
+      const itemIndex = findItemIndex(action.payload.itemName, shoppingList);
+      if (itemIndex === -1) return shoppingList;
+      const newShoppingList = shoppingList.toSpliced(
+        itemIndex,
+        1,
+        action.payload
+      );
+      return newShoppingList;
+    case ShoppingListActions.ADD:
+      return [...shoppingList, action.payload];
+    case ShoppingListActions.DELETE:
+      return shoppingList.filter((item) => item.id !== action.payload.id);
+    default:
+      return shoppingList;
+  }
+};
 
 export const ShoppingListProvider: FC<ShoppingListProviderProps> = ({
   children,
   shoppingItems,
   shoppingInfo,
 }) => {
-  const [shoppingList, setShoppingList] =
-    useState<ShoppingItem[]>(shoppingItems);
+  const [shoppingList, shoppingListDispatch] = useReducer(
+    shoppingListReducer,
+    shoppingItems
+  );
   const [shoppingListInfo, setShoppingListInfo] = useState<ShoppingList | null>(
     shoppingInfo
   );
 
   useEffect(() => {
     if (shoppingListInfo?.listStatus !== "active") {
-      setShoppingList([]);
+      shoppingListDispatch({ type: ShoppingListActions.RESET });
       const fetchActiveShoppingListInfo = async () => {
         const shoppingListInfo = await getActiveShoppingList();
         if (!shoppingListInfo) {
@@ -87,13 +125,9 @@ export const ShoppingListProvider: FC<ShoppingListProviderProps> = ({
     };
     const newShoppingItem = await updateShoppingItem(updatedShoppingItem);
     if (!newShoppingItem) return;
-    setShoppingList((shoppingList) => {
-      const updatedShoppingItemIndex = findItemIndex(
-        newShoppingItem.itemName,
-        shoppingList
-      );
-      shoppingList[updatedShoppingItemIndex] = newShoppingItem;
-      return [...shoppingList];
+    shoppingListDispatch({
+      type: ShoppingListActions.UPDATE,
+      payload: newShoppingItem,
     });
   };
 
@@ -120,7 +154,7 @@ export const ShoppingListProvider: FC<ShoppingListProviderProps> = ({
         itemName,
       });
       if (!newItem) return;
-      setShoppingList((shoppingList) => [...shoppingList, newItem]);
+      shoppingListDispatch({ type: ShoppingListActions.ADD, payload: newItem });
       return;
     }
     const shoppingItem = shoppingList[shoppingItemIndex];
@@ -147,11 +181,9 @@ export const ShoppingListProvider: FC<ShoppingListProviderProps> = ({
     const shoppingItem = shoppingList[shoppingItemIndex];
     const deletedShoppingItem = await deleteShoppingListItem(shoppingItem.id);
     if (!deletedShoppingItem) return;
-    setShoppingList((shoppingList) => {
-      const newShoppingList = shoppingList.filter(
-        (item) => item.id !== deletedShoppingItem.id
-      );
-      return [...newShoppingList];
+    shoppingListDispatch({
+      type: ShoppingListActions.DELETE,
+      payload: deletedShoppingItem,
     });
   };
   const updateItemCheckedProperty = async (
