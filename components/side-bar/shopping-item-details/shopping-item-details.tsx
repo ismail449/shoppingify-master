@@ -68,7 +68,7 @@ const ShoppingItemDetails: FC<ShoppingItemDetailsProps> = async ({ id }) => {
           <ShoppingItemsActions
             itemName={item.name}
             itemId={item.id}
-            categoryName={category?.name ?? ""}
+            categoryId={category?.id ?? ""}
           />
         </div>
       </div>

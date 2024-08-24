@@ -9,7 +9,7 @@ import { useShoppingListContext } from "@/context/shopping-list-context";
 type ShoppingItemsProps = {
   itemName: string;
   itemId: string;
-  categoryName: string;
+  categoryId: string;
 };
 
 const initialFormState = {
@@ -19,7 +19,7 @@ const initialFormState = {
 
 const ShoppingItemsActions: FC<ShoppingItemsProps> = ({
   itemId,
-  categoryName,
+  categoryId,
   itemName,
 }) => {
   const router = useRouter();
@@ -29,7 +29,7 @@ const ShoppingItemsActions: FC<ShoppingItemsProps> = ({
   const handleFormSubmit = async (previousState: any, formData: FormData) => {
     const itemId = formData.get("delete") as string;
     if (!itemId) {
-      addItemToShoppingList(itemName, categoryName);
+      addItemToShoppingList(itemName, categoryId);
       return previousState;
     }
     deleteItemFromShoppingList(itemName);
