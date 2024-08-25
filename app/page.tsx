@@ -1,13 +1,10 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../pages/api/auth/[...nextauth]";
-import ShoppingList from "@/components/side-bar/shopping-list/shopping-list";
-import AddItemForm from "@/components/side-bar/add-item-form/add-item-form";
-import ShoppingItemDetails from "@/components/side-bar/shopping-item-details/shopping-item-details";
 import ShoppingItemsList from "@/components/shopping-items-list/shopping-items-list";
 import { prisma } from "@/lib/prisma";
+import SideBarRenderer from "@/components/side-bar/side-bar-renerer/side-bar-renerer";
 import styles from "./page.module.css";
-import { Suspense } from "react";
 
 export default async function Home({
   searchParams,
@@ -33,22 +30,7 @@ export default async function Home({
   return (
     <main className={styles.home}>
       <ShoppingItemsList shoppingItems={items} />
-
-      {!searchParams.shoppingSidebar ? (
-        <Suspense>
-          <ShoppingList />
-        </Suspense>
-      ) : null}
-      {searchParams.shoppingSidebar === "add-item" ? (
-        <Suspense>
-          <AddItemForm />
-        </Suspense>
-      ) : null}
-      {searchParams.shoppingSidebar === "item-details" ? (
-        <Suspense>
-          <ShoppingItemDetails id={searchParams.id} />
-        </Suspense>
-      ) : null}
+      <SideBarRenderer searchParams={searchParams} />
     </main>
   );
 }
