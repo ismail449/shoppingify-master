@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "@/lib/getServerSession";
 import { revalidatePath } from "next/cache";
 import { signOut } from "next-auth/react";
-import { ShoppingItem, ShoppingList } from "@prisma/client/wasm";
+import { Item, ShoppingItem, ShoppingList } from "@prisma/client/wasm";
 
 const getUser = async () => {
   const session = await getServerSession();
@@ -247,4 +247,13 @@ export const updateActiveShoppingList = async (shoppingList: ShoppingList) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const getItemById = async (id: string) => {
+  return await prisma.item.findUnique({ where: { id: id } });
+};
+export const getItemCategory = async (item: Item) => {
+  return await prisma.category.findUnique({
+    where: { id: item.categoryId },
+  });
 };
