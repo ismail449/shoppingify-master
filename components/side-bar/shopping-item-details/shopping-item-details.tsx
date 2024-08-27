@@ -1,24 +1,33 @@
-import React, { FC } from "react";
+"use client";
+import React, { FC, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SideBar from "../side-bar";
 import ImageWithFallback from "@/components/image-with-fallback/image-with-fallback";
 import ShoppingItemsActions from "./shopping-items-actions/shopping-items-actions";
-import { prisma } from "@/lib/prisma";
+import { Category, Item } from "@prisma/client";
+import { getItemById, getItemCategory } from "@/server-actions/server-actions";
 import styles from "./shopping-item-details.module.css";
 
 type ShoppingItemDetailsProps = {
   id: string;
 };
 
-const ShoppingItemDetails: FC<ShoppingItemDetailsProps> = async ({ id }) => {
-  const item = await prisma.item.findUnique({ where: { id: id } });
-  if (!item?.id) {
-    return;
-  }
-  const category = await prisma.category.findUnique({
-    where: { id: item?.categoryId },
-  });
+const ShoppingItemDetails: FC<ShoppingItemDetailsProps> = ({ id }) => {
+  const [item, setItem] = useState<Item>();
+  const [itemCategory, setItemCategory] = useState<Category>();
+
+  useEffect(() => {
+    const fetchItemAndCategory = async () => {
+      const item = await getItemById(id);
+      if (!item) return;
+      setItem(item);
+      const category = await getItemCategory(item);
+      if (!category) return;
+      setItemCategory(category);
+    };
+    fetchItemAndCategory();
+  }, [id]);
 
   return (
     <SideBar>
@@ -56,7 +65,7 @@ const ShoppingItemDetails: FC<ShoppingItemDetailsProps> = async ({ id }) => {
 
           <div className={styles.itemDetailsContainer}>
             <p className={styles.detailsTitle}>category</p>
-            <p className={styles.detailsValue}>{category?.name}</p>
+            <p className={styles.detailsValue}>{itemCategory?.name}</p>
           </div>
 
           <div className={styles.itemDetailsContainer}>
@@ -66,9 +75,9 @@ const ShoppingItemDetails: FC<ShoppingItemDetailsProps> = async ({ id }) => {
             </p>
           </div>
           <ShoppingItemsActions
-            itemName={item.name}
-            itemId={item.id}
-            categoryId={category?.id ?? ""}
+            itemName={item?.name ?? ""}
+            itemId={item?.id ?? ""}
+            categoryId={itemCategory?.id ?? ""}
           />
         </div>
       </div>
