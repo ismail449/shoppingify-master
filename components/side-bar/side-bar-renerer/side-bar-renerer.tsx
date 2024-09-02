@@ -1,28 +1,28 @@
+"use client";
 import React, { Suspense } from "react";
 import ShoppingList from "../shopping-list/shopping-list";
 import AddItemForm from "../add-item-form/add-item-form";
 import ShoppingItemDetails from "../shopping-item-details/shopping-item-details";
+import { useSearchParams } from "next/navigation";
 
-const SideBarRenderer = ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string };
-}) => {
+const SideBarRenderer = () => {
+  const searchParams = useSearchParams();
+  console.log(searchParams);
   return (
     <>
-      {!searchParams.shoppingSidebar ? (
+      {!searchParams?.get("shoppingSidebar") ? (
         <Suspense>
           <ShoppingList />
         </Suspense>
       ) : null}
-      {searchParams.shoppingSidebar === "add-item" ? (
+      {searchParams?.get("shoppingSidebar") === "add-item" ? (
         <Suspense>
           <AddItemForm />
         </Suspense>
       ) : null}
-      {searchParams.shoppingSidebar === "item-details" ? (
+      {searchParams?.get("shoppingSidebar") === "item-details" ? (
         <Suspense>
-          <ShoppingItemDetails id={searchParams.id} />
+          <ShoppingItemDetails id={searchParams?.get("id") as string} />
         </Suspense>
       ) : null}
     </>

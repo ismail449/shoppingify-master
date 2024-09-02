@@ -6,11 +6,7 @@ import { prisma } from "@/lib/prisma";
 import SideBarRenderer from "@/components/side-bar/side-bar-renerer/side-bar-renerer";
 import styles from "./page.module.css";
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string };
-}) {
+export default async function Home() {
   const session = await getServerSession(authOptions);
   if (!session || !session.user?.email) {
     redirect("/api/auth/signin");
@@ -30,7 +26,7 @@ export default async function Home({
   return (
     <main className={styles.home}>
       <ShoppingItemsList shoppingItems={items} />
-      <SideBarRenderer searchParams={searchParams} />
+      <SideBarRenderer />
     </main>
   );
 }
