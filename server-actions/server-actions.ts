@@ -3,7 +3,12 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "@/lib/getServerSession";
 import { revalidatePath } from "next/cache";
 import { signOut } from "next-auth/react";
-import { Item, ShoppingItem, ShoppingList } from "@prisma/client/wasm";
+import {
+  Item,
+  ShoppingItem,
+  ShoppingList,
+  ListStatus,
+} from "@prisma/client/wasm";
 
 const getUser = async () => {
   const session = await getServerSession();
@@ -256,4 +261,54 @@ export const getItemCategory = async (item: Item) => {
   return await prisma.category.findUnique({
     where: { id: item.categoryId },
   });
+};
+
+const getAllCompletedShoppingItems = async () => {
+  const user = await getUser();
+
+  const shoppingLists = await prisma.shoppingList.findMany({
+    where: {
+      userId: user?.id,
+      listStatus: ListStatus.completed,
+    },
+  });
+  const shoppingItems = await prisma.shoppingItem.findMany({
+    where: {
+      shoppingListId: {
+        in: shoppingLists.map((list) => list.id),
+      },
+    },
+  });
+  return shoppingItems;
+};
+
+export const getAllItemsPurchasePercentage = async () => {
+  const shoppingItems = await getAllCompletedShoppingItems();
+
+  const totalItemsCount = shoppingItems.reduce((acc, item) => {
+    return acc + item.itemCount;
+  }, 0);
+
+  const itemsPercentageArray: {
+    name: string;
+    percentage: number;
+    count: number;
+  }[] = [];
+  shoppingItems.forEach((shoppingItem) => {
+    const foundItem = itemsPercentageArray.find(
+      (item) => item.name === shoppingItem.itemName
+    );
+    if (!foundItem) {
+      itemsPercentageArray.push({
+        name: shoppingItem.itemName,
+        count: shoppingItem.itemCount,
+        percentage: (shoppingItem.itemCount / totalItemsCount) * 100,
+      });
+    } else {
+      foundItem.count = foundItem.count + shoppingItem.itemCount;
+      foundItem.percentage = (foundItem.count / totalItemsCount) * 100;
+    }
+  });
+  itemsPercentageArray.sort((a, b) => b.percentage - a.percentage);
+  return { itemsPercentageArray, totalItemsCount };
 };
