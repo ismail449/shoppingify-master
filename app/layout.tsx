@@ -3,6 +3,7 @@ import { Quicksand } from "next/font/google";
 import NavBar from "@/components/nav-bar/nav-bar";
 import AuthProvider from "./auth-provider";
 import { ShoppingListProvider } from "@/context/shopping-list-context";
+import SideBarRenderer from "@/components/side-bar/side-bar-renerer/side-bar-renerer";
 import {
   getActiveShoppingList,
   getActiveShoppingListItems,
@@ -33,6 +34,7 @@ export default async function RootLayout({
           <body>
             <NavBar />
             <div className="global-container">{children}</div>
+            <SideBarRenderer />
           </body>
         </html>
       </ShoppingListProvider>

@@ -3,7 +3,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../pages/api/auth/[...nextauth]";
 import ShoppingItemsList from "@/components/shopping-items-list/shopping-items-list";
 import { prisma } from "@/lib/prisma";
-import SideBarRenderer from "@/components/side-bar/side-bar-renerer/side-bar-renerer";
 import styles from "./page.module.css";
 
 export default async function Home() {
@@ -26,7 +25,6 @@ export default async function Home() {
   return (
     <main className={styles.home}>
       <ShoppingItemsList shoppingItems={items} />
-      <SideBarRenderer />
     </main>
   );
 }
