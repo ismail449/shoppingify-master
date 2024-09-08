@@ -1,0 +1,8 @@
+.verticalBarChartTick {
+  font-size: var(--s-font);
+  font-weight: bold;
+  fill: var(--black);
+}
+.tickRight {
+  font-size: var(--l-font);
+}
