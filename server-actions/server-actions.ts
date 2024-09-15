@@ -2,7 +2,7 @@
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "@/lib/getServerSession";
 import { revalidatePath } from "next/cache";
-import { signOut } from "next-auth/react";
+import { redirect } from "next/navigation";
 import {
   Item,
   ShoppingItem,
@@ -15,14 +15,12 @@ const getUser = async () => {
 
   const userEmail = session?.user?.email;
   if (!userEmail) {
-    await signOut();
-    return;
+    redirect("/api/auth/signin");
   }
 
   const user = await prisma.user.findUnique({ where: { email: userEmail } });
   if (!user) {
-    await signOut();
-    return;
+    redirect("/api/auth/signin");
   }
   return user;
 };
