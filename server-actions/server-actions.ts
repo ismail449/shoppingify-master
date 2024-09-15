@@ -280,33 +280,35 @@ const getAllCompletedShoppingItems = async () => {
   return shoppingItems;
 };
 
-export const getAllItemsPurchasePercentage = async () => {
+export const getAllPurchasePercentage = async (isCategory: boolean = false) => {
   const shoppingItems = await getAllCompletedShoppingItems();
 
-  const totalItemsCount = shoppingItems.reduce((acc, item) => {
+  const totalCount = shoppingItems.reduce((acc, item) => {
     return acc + item.itemCount;
   }, 0);
 
-  const itemsPercentageArray: {
+  const percentageArray: {
     name: string;
     percentage: number;
     count: number;
   }[] = [];
   shoppingItems.forEach((shoppingItem) => {
-    const foundItem = itemsPercentageArray.find(
-      (item) => item.name === shoppingItem.itemName
+    const foundItem = percentageArray.find((item) =>
+      isCategory
+        ? item.name === shoppingItem.categoryName
+        : item.name === shoppingItem.itemName
     );
     if (!foundItem) {
-      itemsPercentageArray.push({
-        name: shoppingItem.itemName,
+      percentageArray.push({
+        name: isCategory ? shoppingItem.categoryName : shoppingItem.itemName,
         count: shoppingItem.itemCount,
-        percentage: (shoppingItem.itemCount / totalItemsCount) * 100,
+        percentage: (shoppingItem.itemCount / totalCount) * 100,
       });
     } else {
       foundItem.count = foundItem.count + shoppingItem.itemCount;
-      foundItem.percentage = (foundItem.count / totalItemsCount) * 100;
+      foundItem.percentage = (foundItem.count / totalCount) * 100;
     }
   });
-  itemsPercentageArray.sort((a, b) => b.percentage - a.percentage);
-  return { itemsPercentageArray, totalItemsCount };
+  percentageArray.sort((a, b) => b.percentage - a.percentage);
+  return { percentageArray, totalCount };
 };
