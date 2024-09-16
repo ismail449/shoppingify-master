@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import {
   ResponsiveContainer,
   BarChart,
@@ -7,8 +7,6 @@ import {
   XAxis,
   YAxis,
   Text,
-  Tooltip,
-  Legend,
 } from "recharts";
 import styles from "./vertical-bar-chart.module.css";
 
@@ -51,7 +49,7 @@ const YAxisTick = (yAxisTickProps: YAxisTickProps) => {
       y={y - 30}
       textAnchor="start"
       verticalAnchor="middle"
-      className={`${styles.verticalBarChartTick} ${
+      className={`${styles.chartText} ${styles.verticalBarChartTick} ${
         orientation === "right" ? styles.tickRight : ""
       }`}
     >
@@ -67,6 +65,7 @@ type Props = {
   data: { name: string; count: number; percentage: number }[];
   totalCount: number;
   symbol?: string;
+  title?: string;
 };
 
 const VerticalBarChart: FC<Props> = ({
@@ -74,39 +73,48 @@ const VerticalBarChart: FC<Props> = ({
   data,
   totalCount,
   symbol,
+  title,
 }) => {
   return (
-    <ResponsiveContainer width={"100%"} height={70 * data.length}>
-      <BarChart data={data} barSize={6} layout="vertical">
-        <XAxis hide type="number" domain={[0, totalCount]} />
-        <Tooltip />
-        <YAxis
-          yAxisId={0}
-          dataKey={"name"}
-          type="category"
-          axisLine={false}
-          tickLine={false}
-          tick={YAxisTick}
-        />
-        <YAxis
-          orientation="right"
-          yAxisId={1}
-          dataKey={"percentage"}
-          type="category"
-          axisLine={false}
-          tickLine={false}
-          tick={(props) => <YAxisTick {...props} symbol={symbol} />}
-        />
-        <Bar
-          isAnimationActive={true}
-          animationDuration={1000}
-          dataKey={"count"}
-          radius={[4, 4, 4, 4]}
-          fill={barColor}
-          background={{ fill: "#E0E0E0", radius: 4 }}
-        />
-      </BarChart>
-    </ResponsiveContainer>
+    <div style={{ width: "100%" }}>
+      <div className={styles.chartTitleContainer}>
+        <Text className={`${styles.chartText} ${styles.chartTitle}`}>
+          {title}
+        </Text>
+      </div>
+
+      <ResponsiveContainer width={"100%"} height={70 * data.length}>
+        <BarChart data={data} barSize={6} layout="vertical">
+          <XAxis hide type="number" domain={[0, totalCount]} />
+          <YAxis
+            width={10}
+            yAxisId={0}
+            dataKey={"name"}
+            type="category"
+            axisLine={false}
+            tickLine={false}
+            tick={YAxisTick}
+          />
+          <YAxis
+            width={10}
+            orientation="right"
+            yAxisId={1}
+            dataKey={"percentage"}
+            type="category"
+            axisLine={false}
+            tickLine={false}
+            tick={(props) => <YAxisTick {...props} symbol={symbol} />}
+          />
+          <Bar
+            isAnimationActive={true}
+            dataKey={"count"}
+            radius={[4, 4, 4, 4]}
+            fill={barColor}
+            background={{ fill: "#E0E0E0", radius: 4 }}
+          />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
   );
 };
 

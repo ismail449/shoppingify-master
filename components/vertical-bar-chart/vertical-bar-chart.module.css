@@ -1,8 +1,18 @@
-.verticalBarChartTick {
-  font-size: var(--s-font);
+.chartText {
   font-weight: bold;
   fill: var(--black);
 }
+.verticalBarChartTick {
+  font-size: var(--s-font);
+}
 .tickRight {
   font-size: var(--l-font);
+}
+.chartTitle {
+  font-size: var(--xxl-font);
+  font-weight: bold;
+}
+.chartTitleContainer {
+  margin-bottom: 33px;
+  margin-left: 10px;
 }
