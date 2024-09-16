@@ -1,14 +1,8 @@
 "use client";
-import React, { FC } from "react";
-import {
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Text,
-} from "recharts";
+import React, { FC, useRef } from "react";
+import { BarChart, Bar, XAxis, YAxis, Text } from "recharts";
 import styles from "./vertical-bar-chart.module.css";
+import useGetParentElementWidth from "@/hooks/useGetParentElementWidth";
 
 export type YAxisTickProps = {
   textAnchor: string;
@@ -75,45 +69,51 @@ const VerticalBarChart: FC<Props> = ({
   symbol,
   title,
 }) => {
+  const ref = useRef(null);
+  const width = useGetParentElementWidth(ref);
   return (
-    <div style={{ width: "100%" }}>
+    <div ref={ref} style={{ width: "100%" }}>
       <div className={styles.chartTitleContainer}>
         <Text className={`${styles.chartText} ${styles.chartTitle}`}>
           {title}
         </Text>
       </div>
 
-      <ResponsiveContainer width={"100%"} height={70 * data.length}>
-        <BarChart data={data} barSize={6} layout="vertical">
-          <XAxis hide type="number" domain={[0, totalCount]} />
-          <YAxis
-            width={10}
-            yAxisId={0}
-            dataKey={"name"}
-            type="category"
-            axisLine={false}
-            tickLine={false}
-            tick={YAxisTick}
-          />
-          <YAxis
-            width={10}
-            orientation="right"
-            yAxisId={1}
-            dataKey={"percentage"}
-            type="category"
-            axisLine={false}
-            tickLine={false}
-            tick={(props) => <YAxisTick {...props} symbol={symbol} />}
-          />
-          <Bar
-            isAnimationActive={true}
-            dataKey={"count"}
-            radius={[4, 4, 4, 4]}
-            fill={barColor}
-            background={{ fill: "#E0E0E0", radius: 4 }}
-          />
-        </BarChart>
-      </ResponsiveContainer>
+      <BarChart
+        data={data}
+        barSize={6}
+        layout="vertical"
+        width={width}
+        height={70 * data.length}
+      >
+        <XAxis hide type="number" domain={[0, totalCount]} />
+        <YAxis
+          width={10}
+          yAxisId={0}
+          dataKey={"name"}
+          type="category"
+          axisLine={false}
+          tickLine={false}
+          tick={YAxisTick}
+        />
+        <YAxis
+          width={10}
+          orientation="right"
+          yAxisId={1}
+          dataKey={"percentage"}
+          type="category"
+          axisLine={false}
+          tickLine={false}
+          tick={(props) => <YAxisTick {...props} symbol={symbol} />}
+        />
+        <Bar
+          isAnimationActive={true}
+          dataKey={"count"}
+          radius={[4, 4, 4, 4]}
+          fill={barColor}
+          background={{ fill: "#E0E0E0", radius: 4 }}
+        />
+      </BarChart>
     </div>
   );
 };
