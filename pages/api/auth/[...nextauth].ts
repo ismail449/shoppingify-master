@@ -46,7 +46,7 @@ export const authOptions: NextAuthOptions = {
       const newCategories = await prisma.category.createManyAndReturn({
         data: defaultCategories,
       });
-      console.log(user.id);
+
       const newCategoriesOnUsers = await prisma.categoriesOnUsers.createMany({
         data: newCategories.map((category) => {
           return {

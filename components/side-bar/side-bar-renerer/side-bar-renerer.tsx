@@ -7,7 +7,7 @@ import { useSearchParams } from "next/navigation";
 
 const SideBarRenderer = () => {
   const searchParams = useSearchParams();
-  console.log(searchParams);
+
   return (
     <>
       {!searchParams?.get("shoppingSidebar") ? (
