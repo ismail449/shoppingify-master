@@ -115,4 +115,5 @@ model ShoppingList {
   userId        String
   shoppingItems ShoppingItem[]
   listStatus    ListStatus     @default(active)
+  updatedAt     DateTime?      @updatedAt
 }

@@ -116,7 +116,7 @@ export const ShoppingListProvider: FC<ShoppingListProviderProps> = ({
   }, [shoppingListInfo?.listStatus]);
 
   const updateShoppingListItem = async (
-    updates: Partial<ShoppingList>,
+    updates: Partial<ShoppingItem>,
     itemIndex: number
   ) => {
     const updatedShoppingItem = {
@@ -133,11 +133,7 @@ export const ShoppingListProvider: FC<ShoppingListProviderProps> = ({
 
   const updateShoppingListInfo = async (updates: Partial<ShoppingList>) => {
     if (!shoppingListInfo) return;
-    const updatedShoppingListInfo = {
-      ...shoppingListInfo,
-      ...updates,
-    };
-    const updatedList = await updateActiveShoppingList(updatedShoppingListInfo);
+    const updatedList = await updateActiveShoppingList(updates);
     if (updatedList) setShoppingListInfo(updatedList);
   };
 

@@ -237,7 +237,9 @@ export const updateShoppingItem = async (shoppingItem: ShoppingItem) => {
   }
 };
 
-export const updateActiveShoppingList = async (shoppingList: ShoppingList) => {
+export const updateActiveShoppingList = async (
+  shoppingList: Partial<ShoppingList>
+) => {
   try {
     const activeShoppingList = await getActiveShoppingList();
     const updatedShoppingList = await prisma.shoppingList.update({
