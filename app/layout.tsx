@@ -9,6 +9,7 @@ import {
   getActiveShoppingListItems,
 } from "@/server-actions/server-actions";
 import "./globals.css";
+import { Suspense } from "react";
 
 const quicksand = Quicksand({ weight: "variable", subsets: ["latin"] });
 
@@ -32,9 +33,11 @@ export default async function RootLayout({
       >
         <html lang="en" className={quicksand.className}>
           <body>
-            <NavBar />
-            <div className="global-container">{children}</div>
-            <SideBarRenderer />
+            <Suspense>
+              <NavBar />
+              <div className="global-container">{children}</div>
+              <SideBarRenderer />
+            </Suspense>
           </body>
         </html>
       </ShoppingListProvider>
