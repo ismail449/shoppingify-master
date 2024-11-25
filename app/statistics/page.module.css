@@ -1,0 +1,28 @@
+.statisticsContainer {
+  width: 90%;
+  margin-inline: auto;
+}
+.berChartsContainer {
+  display: flex;
+  margin-top: 53px;
+  width: 100%;
+  justify-content: center;
+  gap: 65px;
+}
+
+.barChart {
+  flex: 1;
+}
+
+.lineChart {
+  width: 100%;
+  height: 500px;
+}
+
+@media only screen and (max-width: 992px) {
+  .berChartsContainer {
+    margin-top: 28px;
+    flex-direction: column;
+    gap: 33px;
+  }
+}
